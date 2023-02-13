@@ -26,7 +26,8 @@ jobs:
         run: cd assignment1
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release -o ${{env.DOTNET_ROOT}}/assignment1
+        run: cd assignment1
+        run: dotnet build --configuration Release 
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/assignment1
