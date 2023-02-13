@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - FPTBookAssignment
 on:
   push:
     branches:
-      - main/assignment1
+      - main
   workflow_dispatch:
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
 
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release 
+        run: dotnet build ./assignment1 --configuration Release 
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/assignment1
