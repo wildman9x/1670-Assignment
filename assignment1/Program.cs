@@ -16,7 +16,7 @@ var connectionString = builder.Configuration.GetConnectionString("assignment1Ide
 builder.Services.AddDbContext<assignment1IdentityDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<SystemUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<SystemUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<assignment1IdentityDbContext>();
 
 // Add services to the container.
