@@ -2,12 +2,22 @@ using assignment1.Common;
 using assignment1.Repository;
 using assignment1.Services;
 using Serilog;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using assignment1.Areas.Identity.Data;
 
 StaticLogger.EnsureInitialized();
 Log.Information("Azure Storage API Booting Up...");
 
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("assignment1IdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'assignment1IdentityDbContextConnection' not found.");
+
+builder.Services.AddDbContext<assignment1IdentityDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<SystemUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<assignment1IdentityDbContext>();
 
 // Add services to the container.
 
@@ -43,6 +53,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
+app.UseAuthentication();;
 
 app.Run();
 Log.Information("API is now ready to serve files to and from Azure Cloud Storage...");
