@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace assignment1.Areas.Identity.Data;
 
-// Add profile data for application users by adding properties to the SystemUser class
+
 public class SystemUser : IdentityUser
 {
     [PersonalData]
