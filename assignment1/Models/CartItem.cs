@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace assignment1.Models
 {
-    public class Cart
+    public class CartItem
     {
         [Key]
         public string ItemId { get; set; }

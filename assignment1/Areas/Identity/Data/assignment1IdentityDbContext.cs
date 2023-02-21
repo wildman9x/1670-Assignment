@@ -28,7 +28,11 @@ public class assignment1IdentityDbContext : IdentityDbContext<SystemUser>
 
     public DbSet<assignment1.Models.BookQuantity>? BookQuantity { get; set; }
 
+    public DbSet<assignment1.Models.CartItem>? CartItem { get; set; }
+
     public DbSet<assignment1.Models.Order>? Order { get; set; }
 
-    public DbSet<assignment1.Models.Cart>? Cart { get; set; }
+    
+
+    
 }

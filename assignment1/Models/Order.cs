@@ -25,6 +25,6 @@ namespace assignment1.Models
         [Required]
         public string? Address { get; set; }
         // Cart
-        public List<Cart>? Cart { get; set; }
+        public List<CartItem>? CartItems { get; set; }
     }
 }
