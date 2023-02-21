@@ -8,6 +8,9 @@ namespace assignment1.Models
 {
     public class Cart
     {
+        [Key]
+        public string ItemId { get; set; }
+        public string CartId { get; set; }
         public Book? Book { get; set; }
         public int Quantity { get; set; }
     }

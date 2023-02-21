@@ -30,6 +30,6 @@ namespace assignment1.Models
         [Required]
         public string? Biography { get; set; }
         // Image
-        public ImageDto? Image { get; set; }
+        public string? Image { get; set; }
     }
 }
