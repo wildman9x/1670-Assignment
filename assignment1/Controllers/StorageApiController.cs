@@ -14,12 +14,12 @@ namespace assignment1.Controllers
     {
         private readonly IAzureStorage _storage;
 
-        public StorageApiController (IAzureStorage storage)
+        public StorageApiController(IAzureStorage storage)
         {
             _storage = storage;
         }
 
-        [HttpGet(nameof(Get))]
+        [HttpGet()]
         public async Task<IActionResult> Get()
         {
             // Get all files at the Azure Storage Location and return them
@@ -29,7 +29,7 @@ namespace assignment1.Controllers
             return StatusCode(StatusCodes.Status200OK, files);
         }
 
-        [HttpPost(nameof(Upload))]
+        [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
             ImageResponse? response = await _storage.UploadImageAsync(file);
@@ -65,7 +65,7 @@ namespace assignment1.Controllers
             }
         }
 
-        [HttpDelete("filename")]
+        [HttpDelete("{filename}")]
         public async Task<IActionResult> Delete(string filename)
         {
             ImageResponse response = await _storage.DeleteImageAsync(filename);
@@ -75,7 +75,8 @@ namespace assignment1.Controllers
             {
                 // Return an error message to the client
                 return StatusCode(StatusCodes.Status500InternalServerError, response.Status);
-            } else
+            }
+            else
             {
                 // File has been successfully deleted
                 return StatusCode(StatusCodes.Status200OK, response.Status);
