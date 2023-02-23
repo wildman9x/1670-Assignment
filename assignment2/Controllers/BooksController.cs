@@ -259,7 +259,7 @@ namespace assignment2.Controllers
 
         [HttpGet("TotalCart")]
         // Total Cart
-        public async Task<ActionResult<CartItem>> totalCart()
+        public async Task<ActionResult<Decimal>> totalCart()
         {
             var cart = HttpContext.Session.GetString("cart");
             if (cart == null)
