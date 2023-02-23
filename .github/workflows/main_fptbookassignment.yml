@@ -27,7 +27,7 @@ jobs:
         run: dotnet build ./assignment2 --configuration Release 
 
       - name: dotnet publish
-        run: dotnet publish ./assignment2 -c Release -o ${{env.DOTNET_ROOT}}/assignment1
+        run: dotnet publish ./assignment2 -c Release -o ${{env.DOTNET_ROOT}}/assignment2
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
