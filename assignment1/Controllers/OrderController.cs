@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using assignment1.Areas.Identity.Data;
 using assignment1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace assignment1.Controllers
 {
@@ -21,6 +22,7 @@ namespace assignment1.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: api/Order
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
@@ -32,6 +34,7 @@ namespace assignment1.Controllers
             return await _context.Order.ToListAsync();
         }
 
+        [Authorize]
         // GET: api/Order/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
@@ -50,6 +53,25 @@ namespace assignment1.Controllers
             return order;
         }
 
+        // Search for orders by phone number
+        [HttpGet("search/{phone}")]
+        public async Task<ActionResult<IEnumerable<Order>>> SearchOrder(string phone)
+        {
+          if (_context.Order == null)
+          {
+              return NotFound();
+          }
+            var orders = await _context.Order.Where(o => o.Phone == phone).ToListAsync();
+
+            if (orders == null)
+            {
+                return NotFound();
+            }
+
+            return orders;
+        }
+
+        [Authorize]
         // PUT: api/Order/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -96,6 +118,7 @@ namespace assignment1.Controllers
             return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
 
+        [Authorize]
         // DELETE: api/Order/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)

@@ -40,7 +40,7 @@ namespace assignment1.Controllers
             }
             else
             {
-                List<CartItem> dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+                List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
                 bool check = true;
                 for (int i = 0; i < dataCart.Count; i++)
                 {
@@ -74,7 +74,7 @@ namespace assignment1.Controllers
                 // create new cart
                 HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(new List<CartItem>()));
             }
-            List<CartItem> dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
             {
                 return NotFound();
@@ -91,7 +91,7 @@ namespace assignment1.Controllers
             {
                 return NotFound();
             }
-            List<CartItem> dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
             {
                 return NotFound();
@@ -128,7 +128,7 @@ namespace assignment1.Controllers
             {
                 return NotFound();
             }
-            List<CartItem> dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
             {
                 return NotFound();
@@ -161,7 +161,7 @@ namespace assignment1.Controllers
             {
                 return NotFound();
             }
-            List<CartItem> dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
             {
                 return NotFound();
@@ -183,7 +183,7 @@ namespace assignment1.Controllers
             {
                 return NotFound();
             }
-            List<CartItem> dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
             {
                 return NotFound();
@@ -202,6 +202,7 @@ namespace assignment1.Controllers
             return Ok(await getDetailBook(id));
         }
 
+        [HttpGet("Book/{id}")]
         // Get Detail Book
         public async Task<Book> getDetailBook(int id)
         {
