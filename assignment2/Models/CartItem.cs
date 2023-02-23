@@ -11,6 +11,7 @@ namespace assignment2.Models
         public string Id { get; set; }
         public string CartId { get; set; }
         public Book? Book { get; set; }
+        public int BookId { get; set; }
         public int Quantity { get; set; }
     }
 }
