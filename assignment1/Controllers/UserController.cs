@@ -184,5 +184,14 @@ namespace assignment1.Controllers
             return BadRequest();
         }
 
+        // Log a user out
+        [Authorize]
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout() {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            return Ok();
+        }
+
     }
 }
