@@ -185,7 +185,7 @@ namespace assignment1.Controllers
         }
 
         // Log a user out
-        [Authorize]
+        // [Authorize]
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout() {
             await _signInManager.SignOutAsync();
