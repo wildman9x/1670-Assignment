@@ -15,10 +15,10 @@ namespace assignment1.Models
         public string? Title { get; set; }
         // Author
         [Required]
-        public Author? Author { get; set; }
+        public List<Author>? Authors { get; set; }
         // Genre
         [Required]
-        public Genre? Genre { get; set; }
+        public List<Genre>? Genres { get; set; }
         // Publisher
         [Required]
         public Publisher? Publisher { get; set; }
