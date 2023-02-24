@@ -193,5 +193,24 @@ namespace assignment1.Controllers
             return Ok();
         }
 
+        // Allow admin to see the information of another user
+        [Authorize(Roles = "Admin")]
+        [HttpGet("GetUser/{id}")]
+        public async Task<IActionResult> GetUser(string id) {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user != null) {
+                return Ok(user);
+            }
+            return BadRequest();
+        }
+
+        // Allow admin to see all users
+        [Authorize(Roles = "Admin")]
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers() {
+            var users = _userManager.Users;
+            return Ok(users);
+        }
+
     }
 }
