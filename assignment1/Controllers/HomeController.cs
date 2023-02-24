@@ -159,7 +159,7 @@ namespace assignment1.Controllers
             var cart = HttpContext.Session.GetString("cart");
             if (cart == null)
             {
-                return NotFound();
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(new List<CartItem>()));
             }
             List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
