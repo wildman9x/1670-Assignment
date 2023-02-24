@@ -116,6 +116,44 @@ namespace assignment1.Controllers
             return NoContent();
         }
 
+        // Search books by name
+        [HttpGet("SearchBook/{name}")]
+        public async Task<ActionResult<IEnumerable<Book>>> SearchBook(string name)
+        {
+            if (_context.Book == null)
+            {
+                return NotFound();
+            }
+            var book = await _context.Book.Where(b => b.Title.Contains(name)).ToListAsync();
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return book;
+        }
+
+        // Get all books of a genre, accepts Id as a parameter
+        // Go through the list of books and find the ones that have the same genre id
+        [HttpGet("GetBooksByGenre/{genreId}")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByGenre(int genreId)
+        {
+            if (_context.Book == null)
+            {
+                return NotFound();
+            }
+            var genreToFind = await _context.Genre.FindAsync(genreId);
+            var book = await _context.Book.Where(b => b.Genres.Contains(genreToFind)).ToListAsync();
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return book;
+        }
+
         private bool BookExists(int id)
         {
             return (_context.Book?.Any(e => e.Id == id)).GetValueOrDefault();

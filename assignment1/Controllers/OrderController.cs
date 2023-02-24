@@ -139,6 +139,56 @@ namespace assignment1.Controllers
             return NoContent();
         }
 
+        // Find all orders by phone number
+        [HttpGet("find/{phone}")]
+        public async Task<ActionResult<IEnumerable<Order>>> FindOrder(string phone)
+        {
+          if (_context.Order == null)
+          {
+              return NotFound();
+          }
+            var orders = await _context.Order.Where(o => o.Phone == phone).ToListAsync();
+
+            if (orders == null)
+            {
+                return NotFound();
+            }
+
+            return orders;
+        }
+
+        // GET: api/CheckOut
+        // Gather all the cart items and return them
+        // If no cart is found, return a 404
+        [HttpGet("checkout")]
+        public async Task<ActionResult<IEnumerable<CartItem>>> CheckOut()
+        {
+          var cart = HttpContext.Session.GetString("cart");
+            if (cart == null)
+            {
+                return NotFound();
+            }
+            List<CartItem> dataCart = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            return dataCart;
+        }
+
+        // POST: api/CheckOut
+        [HttpPost("checkout")]
+        public async Task<ActionResult<Order>> CheckOut(Order order)
+        {
+          var cart = HttpContext.Session.GetString("cart");
+            if (cart == null)
+            {
+                return NotFound();
+            }
+            List<CartItem> dataCart = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            order.CartItems = dataCart;
+            _context.Order.Add(order);
+            await _context.SaveChangesAsync();
+            HttpContext.Session.SetString("cart", "");
+            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+        }
+
         private bool OrderExists(int id)
         {
             return (_context.Order?.Any(e => e.Id == id)).GetValueOrDefault();

@@ -116,6 +116,35 @@ namespace assignment1.Controllers
             return NoContent();
         }
 
+        // Search author by name
+        [HttpGet("SearchAuthor/{name}")]
+        public async Task<ActionResult<IEnumerable<Author>>> SearchAuthor(string name)
+        {
+            if (_context.Author == null)
+            {
+                return NotFound();
+            }
+            // If the search string is two words, split it into two strings
+            string[] nameArray = name.Split(' ');
+            string firstName = nameArray[0];
+            string lastName = nameArray[1];
+            // Find for author whose name contains the search string
+            var author = await _context.Author
+            .Where(
+                a => a.FirstName.Contains(firstName) || 
+                a.LastName.Contains(lastName) || 
+                a.FirstName.Contains(name) || 
+                a.LastName.Contains(name))
+            .ToListAsync();
+
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            return author;
+        }
+
         private bool AuthorExists(int id)
         {
             return (_context.Author?.Any(e => e.Id == id)).GetValueOrDefault();

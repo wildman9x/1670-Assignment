@@ -64,7 +64,7 @@ namespace assignment1.Controllers
 
         }
 
-        [HttpGet("ListCart/{id}")]
+        [HttpGet("ListCart")]
         // List all items in the cart
         public async Task<ActionResult<List<CartItem>>> listCart()
         {
