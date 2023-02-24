@@ -154,6 +154,46 @@ namespace assignment1.Controllers
             return book;
         }
 
+        // Get all books of an author, accepts Id as a parameter
+        // Go through the list of books and find the ones that have the same author id
+        [HttpGet("GetBooksByAuthor/{authorId}")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByAuthor(int authorId)
+        {
+            if (_context.Book == null)
+            {
+                return NotFound();
+            }
+            var authorToFind = await _context.Author.FindAsync(authorId);
+            var book = await _context.Book.Where(b => b.Authors.Contains(authorToFind)).ToListAsync();
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return book;
+        }
+
+        // Get all books of a publisher, accepts Id as a parameter  
+        // Go through the list of books and find the ones that have the same publisher id
+        [HttpGet("GetBooksByPublisher/{publisherId}")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByPublisher(int publisherId)
+        {
+            if (_context.Book == null)
+            {
+                return NotFound();
+            }
+            var publisherToFind = await _context.Publisher.FindAsync(publisherId);
+            var book = await _context.Book.Where(b => b.Publisher == publisherToFind).ToListAsync();
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return book;
+        }
+
         private bool BookExists(int id)
         {
             return (_context.Book?.Any(e => e.Id == id)).GetValueOrDefault();
