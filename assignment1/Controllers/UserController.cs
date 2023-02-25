@@ -160,6 +160,13 @@ namespace assignment1.Controllers
             return BadRequest();
         }
 
+        // Get all roles
+        [HttpGet("GetRoles")]
+        public async Task<IActionResult> GetRoles() {
+            var roles = _roleManager.Roles;
+            return Ok(roles);
+        }
+
         // Log in a user
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LogInInputModel model) {
