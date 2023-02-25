@@ -87,7 +87,7 @@ namespace assignment1.Controllers
         // Uncomment this after you create an admin user
         [HttpPost("CreateUser")]
         // Create user and assign role to them
-        public async Task<IActionResult> AddUser(string FirstName, string LastName, DateTime BirthDate,string email, string password) {
+        public async Task<IActionResult> AddUser(string FirstName, string LastName, DateTime BirthDate,string email, string password, string role) {
             var user = new SystemUser {
                 UserName = email,
                 Email = email,
@@ -97,7 +97,7 @@ namespace assignment1.Controllers
             };
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded) {
-                await _userManager.AddToRoleAsync(user, "Admin");
+                await _userManager.AddToRoleAsync(user, role);
                 return Ok();
             }
             return BadRequest();
