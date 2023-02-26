@@ -224,12 +224,12 @@ namespace assignment1.Controllers
             if (cart == null)
             {
                 HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(new List<CartItem>()));
-                return 0;
+                return Ok(0);
             }
             List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
             {
-                return NotFound();
+                return Ok(0);
             }
             
             return dataCart.Count;
