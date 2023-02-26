@@ -87,7 +87,7 @@ namespace assignment1.Controllers
 
         [HttpPost]
         // Update CartItem
-        public async Task<ActionResult<CartItem>> updateCart(CartItem cartItem, int Quantity)
+        public async Task<ActionResult<CartItem>> updateCart(int id, int Quantity)
         {
             var cart = HttpContext.Session.GetString("cart");
             if (cart == null)
@@ -95,6 +95,7 @@ namespace assignment1.Controllers
                 return NotFound();
             }
             List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+
             if (dataCart == null)
             {
                 return NotFound();
@@ -103,23 +104,30 @@ namespace assignment1.Controllers
             {
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].Book.Id == cartItem.Book.Id)
+                    foreach (var item in dataCart)
                     {
-                        dataCart.RemoveAt(i);
+                        if (item.Book.Id == id)
+                        {
+                            dataCart.Remove(item);
+                            break;
+                        }
                     }
                 }
                 HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
-                return Ok(await getDetailBook(cartItem.Book.Id));
-            }
-            for (int i = 0; i < dataCart.Count; i++)
+                return Ok(await getDetailBook(id));
+            } else
             {
-                if (dataCart[i].Book.Id == cartItem.Book.Id)
+                for (int i = 0; i < dataCart.Count; i++)
                 {
-                    dataCart[i].Quantity = Quantity;
+                    if (dataCart[i].Book.Id == id)
+                    {
+                        dataCart[i].Quantity = Quantity;
+                    }
                 }
             }
+            
             HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
-            return Ok(await getDetailBook(cartItem.Book.Id));
+            return Ok(await getDetailBook(id));
         }
 
         [HttpGet("DeleteCartItem/{id}")]
