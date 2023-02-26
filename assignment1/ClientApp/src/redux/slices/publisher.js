@@ -85,7 +85,11 @@ export const createPublisher = createAsyncThunk(
 
 export const getPublisher = createAsyncThunk(
   "publisher/getPublisher",
-  async (id) => {
+  async (id, { getState }) => {
+    const stored = publisherSelector.selectById(getState(), id);
+    if (stored) {
+      return stored;
+    }
     const response = await fetch("/api/Publisher/" + id);
     const data = await response.json();
     return data;

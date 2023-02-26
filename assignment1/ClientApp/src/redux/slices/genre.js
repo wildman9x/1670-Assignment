@@ -70,8 +70,15 @@ export const createGenre = createAsyncThunk(
   }
 );
 
-export const getGenre = createAsyncThunk("genre/getGenre", async (id) => {
-  const response = await fetch("/api/Genre/" + id);
-  const data = await response.json();
-  return data;
-});
+export const getGenre = createAsyncThunk(
+  "genre/getGenre",
+  async (id, { getState }) => {
+    const stored = genreSelector.selectById(getState(), id);
+    if (stored) {
+      return stored;
+    }
+    const response = await fetch("/api/Genre/" + id);
+    const data = await response.json();
+    return data;
+  }
+);

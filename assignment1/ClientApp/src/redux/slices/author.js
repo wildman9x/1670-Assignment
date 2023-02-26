@@ -75,8 +75,15 @@ export const createAuthor = createAsyncThunk(
   }
 );
 
-export const getAuthor = createAsyncThunk("authors/getAuthor", async (id) => {
-  const response = await fetch("/api/Author/" + id);
-  const data = await response.json();
-  return data;
-});
+export const getAuthor = createAsyncThunk(
+  "authors/getAuthor",
+  async (id, { getState }) => {
+    const storedAuthor = authorSelector.selectById(getState(), id);
+    if (storedAuthor) {
+      return storedAuthor;
+    }
+    const response = await fetch("/api/Author/" + id);
+    const data = await response.json();
+    return data;
+  }
+);

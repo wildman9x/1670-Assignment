@@ -6,12 +6,13 @@ import user from "./slices/user";
 import author from "./slices/author";
 import genre from "./slices/genre";
 import publisher from "./slices/publisher";
+import book from "./slices/book";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["user", "author", "genre", "publisher"],
+  whitelist: ["user", "author", "genre", "publisher", "book"],
 };
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   author,
   genre,
   publisher,
+  book,
 });
 
 const pReducer = persistReducer(persistConfig, rootReducer);

@@ -1,40 +1,30 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { authorSelector } from "../redux/slices/author";
+import { booksSelector, fetchBook } from "../redux/slices/book";
+import { genreSelector } from "../redux/slices/genre";
+import { publisherSelector } from "../redux/slices/publisher";
 
 export const Home = () => {
-  const [books, setBooks] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-
-  console.log(books);
+  const dispatch = useDispatch();
+  const books = useSelector(booksSelector.selectAll);
+  const booksState = useSelector((state) => state.book);
 
   useEffect(() => {
-    fetch("/api/Book", {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+    dispatch(fetchBook());
+  }, [dispatch]);
 
-        setBooks(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.warn(error);
-        setLoading(false);
-      });
-  }, []);
-  console.log("====================================");
-  console.log(books);
-  console.log("====================================");
   return (
     <div>
       <h1>Books</h1>
-      {loading ? (
+      {booksState.loading ? (
         <p>Loading...</p>
       ) : (
         <table className="table table-striped" aria-labelledby="tabelLabel">
           <thead>
             <tr>
               <th>Title</th>
+              <th>Image</th>
               <th>
                 <a href="/author">Authors</a>
               </th>
@@ -50,38 +40,66 @@ export const Home = () => {
           </thead>
           <tbody>
             {books?.map((book) => (
-              <tr key={book.id}>
-                <td>{book.title}</td>
-                <td>
-                  {book?.authors?.map((author) => {
-                    return (
-                      <a key={author?.id} href={`/author/${author.id}`}>
-                        {author?.firstName} {author.lastName}
-                      </a>
-                    );
-                  })}
-                </td>
-                <td>
-                  {book?.genres?.map((genre) => {
-                    return (
-                      <a key={genre.id} href={`/genre/${genre.id}`}>
-                        {genre.name}
-                      </a>
-                    );
-                  })}
-                </td>
-                <td>
-                  <a href={`/publisher/${book?.publisher?.id}`}>
-                    {book?.publisher?.name}
-                  </a>
-                </td>
-                <td>{book.publishDate}</td>
-                <td>{book.price}</td>
-              </tr>
+              <RenderBook key={book.id} book={book} />
             ))}
           </tbody>
         </table>
       )}
     </div>
+  );
+};
+
+const RenderBook = ({ book }) => {
+  const authors = useSelector((state) =>
+    book?.authorsId?.map((author) =>
+      authorSelector.selectById(state, author?.authorId)
+    )
+  );
+  const genres = useSelector((state) =>
+    book?.genresId?.map((genre) =>
+      genreSelector.selectById(state, genre?.genreId)
+    )
+  );
+  const publisher = useSelector((state) =>
+    publisherSelector.selectById(state, book.publisherId)
+  );
+
+  return (
+    <tr>
+      <td>{book.title}</td>
+      <td>
+        <img
+          style={{
+            height: "200px",
+            objectFit: "cover",
+          }}
+          src={book.image}
+          alt={book.title}
+        />
+      </td>
+      <td>
+        {authors?.map((author) => {
+          return (
+            <a key={author?.id} href={`/author/${author.id}`}>
+              {author?.firstName} {author.lastName}{" "}
+            </a>
+          );
+        })}
+      </td>
+      <td>
+        {genres?.map((genre) => {
+          return (
+            <a key={genre.id} href={`/genre/${genre.id}`}>
+              {genre.name}
+            </a>
+          );
+        })}
+      </td>
+      <td>
+        <a href={`/publisher/${publisher?.id}`}>{publisher?.name}</a>
+      </td>
+      <td>{book.publishDate}</td>
+      <td>{book.price}</td>
+    </tr>
   );
 };
