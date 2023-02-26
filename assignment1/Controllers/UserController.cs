@@ -176,7 +176,9 @@ namespace assignment1.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded) {
                     _logger.LogInformation("User logged in.");
-                    return Ok(await _userManager.GetRolesAsync(await _userManager.GetUserAsync(User)));
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    var roles = await _userManager.GetRolesAsync(user);
+                    return Ok(roles);
                 }
                 if (result.RequiresTwoFactor) {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = LoginInput.RememberMe });

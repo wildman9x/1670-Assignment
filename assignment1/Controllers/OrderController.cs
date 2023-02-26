@@ -174,15 +174,28 @@ namespace assignment1.Controllers
 
         // POST: api/CheckOut
         [HttpPost("checkout")]
-        public async Task<ActionResult<Order>> CheckOut(Order order)
+        public async Task<ActionResult<Order>> CheckOut(string name, string email, string phone, string address)
         {
           var cart = HttpContext.Session.GetString("cart");
             if (cart == null)
             {
                 return NotFound();
             }
+            Order order = new Order{
+                Name = name,
+                Email = email,
+                Phone = phone,
+                Address = address,
+                CartItems = new List<CartItem>(),
+            };
             List<CartItem> dataCart = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItem>>(cart);
             order.CartItems = dataCart;
+            foreach (var item in order.CartItems)
+            {
+                // give each itemid an uuid
+                item.ItemId = Guid.NewGuid().ToString();
+                item.CartId = Guid.NewGuid().ToString();
+            }
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
             HttpContext.Session.SetString("cart", "");

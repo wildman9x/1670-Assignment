@@ -33,7 +33,7 @@ namespace assignment1.Controllers
                {
                    new CartItem
                    {
-                       Book = book,
+                       BookId = id,
                        Quantity = 1
                    }
                };
@@ -46,7 +46,7 @@ namespace assignment1.Controllers
                 bool check = true;
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].Book.Id == id)
+                    if (dataCart[i].BookId == id)
                     {
                         dataCart[i].Quantity++;
                         check = false;
@@ -56,7 +56,7 @@ namespace assignment1.Controllers
                 {
                     dataCart.Add(new CartItem
                     {
-                        Book = await getDetailBook(id),
+                        BookId = id,
                         Quantity = 1
                     });
                 }
@@ -87,7 +87,7 @@ namespace assignment1.Controllers
 
         [HttpPost]
         // Update CartItem
-        public async Task<ActionResult<CartItem>> updateCart(CartItem cartItem, int Quantity)
+        public async Task<ActionResult<CartItem>> updateCart(int id, int Quantity)
         {
             var cart = HttpContext.Session.GetString("cart");
             if (cart == null)
@@ -95,6 +95,7 @@ namespace assignment1.Controllers
                 return NotFound();
             }
             List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+
             if (dataCart == null)
             {
                 return NotFound();
@@ -103,23 +104,30 @@ namespace assignment1.Controllers
             {
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].Book.Id == cartItem.Book.Id)
+                    foreach (var item in dataCart)
                     {
-                        dataCart.RemoveAt(i);
+                        if (item.BookId == id)
+                        {
+                            dataCart.Remove(item);
+                            break;
+                        }
                     }
                 }
                 HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
-                return Ok(await getDetailBook(cartItem.Book.Id));
-            }
-            for (int i = 0; i < dataCart.Count; i++)
+                return Ok(await getDetailBook(id));
+            } else
             {
-                if (dataCart[i].Book.Id == cartItem.Book.Id)
+                for (int i = 0; i < dataCart.Count; i++)
                 {
-                    dataCart[i].Quantity = Quantity;
+                    if (dataCart[i].BookId == id)
+                    {
+                        dataCart[i].Quantity = Quantity;
+                    }
                 }
             }
+            
             HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
-            return Ok(await getDetailBook(cartItem.Book.Id));
+            return Ok(await getDetailBook(id));
         }
 
         [HttpGet("DeleteCartItem/{id}")]
@@ -138,7 +146,7 @@ namespace assignment1.Controllers
             }
             for (int i = 0; i < dataCart.Count; i++)
             {
-                if (dataCart[i].Book.Id == id)
+                if (dataCart[i].BookId == id)
                 {
                     dataCart.RemoveAt(i);
                 }
@@ -173,7 +181,9 @@ namespace assignment1.Controllers
             decimal total = 0.0m;
             for (int i = 0; i < dataCart.Count; i++)
             {
-                total += dataCart[i].Book.Price * dataCart[i].Quantity;
+                Book book = await getDetailBook(dataCart[i].BookId);
+                var price = book.Price;
+                total += price * dataCart[i].Quantity;
             }
             return total;
         }
@@ -194,7 +204,7 @@ namespace assignment1.Controllers
             }
             for (int i = 0; i < dataCart.Count; i++)
             {
-                if (dataCart[i].Book.Id == id)
+                if (dataCart[i].BookId == id)
                 {
                     if (dataCart[i].Quantity > 1)
                     {
@@ -204,6 +214,25 @@ namespace assignment1.Controllers
             }
             HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
             return Ok(await getDetailBook(id));
+        }
+
+        // Count number of books in cart
+        [HttpGet("CountCart")]
+        public async Task<ActionResult<int>> countCart()
+        {
+            var cart = HttpContext.Session.GetString("cart");
+            if (cart == null)
+            {
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(new List<CartItem>()));
+                return Ok(0);
+            }
+            List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            if (dataCart == null)
+            {
+                return Ok(0);
+            }
+            
+            return dataCart.Count;
         }
 
         [HttpGet("Book/{id}")]
