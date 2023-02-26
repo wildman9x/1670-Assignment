@@ -14,14 +14,14 @@ namespace assignment1.Models
         [Required]
         public string? Title { get; set; }
         // Author
-        [Required]
-        public List<Author>? Authors { get; set; }
+        // [Required]
+        public List<BookAuthor>? AuthorsId { get; set; }
         // Genre
-        [Required]
-        public List<Genre>? Genres { get; set; }
+        // [Required]
+        public List<BookGenre>? GenresId { get; set; }
         // Publisher
         [Required]
-        public Publisher? Publisher { get; set; }
+        public int? PublisherId { get; set; }
         // Publish Date
         [Required]
         public DateTime PublishDate { get; set; }
