@@ -107,17 +107,7 @@ namespace assignment1.Controllers
           {
               return Problem("Entity set 'assignment1IdentityDbContext.Book'  is null.");
           }
-            book.Id = await _context.Book.MaxAsync(b => b.Id) + 1;
             _context.Book.Add(book);
-            // change the bookId in genrebook and authorbook to book.Id
-            foreach (var item in book.GenresId)
-            {
-                item.BookId = book.Id;
-            }
-            foreach (var item in book.AuthorsId)
-            {
-                item.BookId = book.Id;
-            }
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBook", new { id = book.Id }, book);
