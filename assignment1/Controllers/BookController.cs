@@ -76,7 +76,7 @@ namespace assignment1.Controllers
             {
                 return BadRequest();
             }
-
+            
             _context.Entry(book).State = EntityState.Modified;
 
             try

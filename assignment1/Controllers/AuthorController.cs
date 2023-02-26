@@ -51,6 +51,24 @@ namespace assignment1.Controllers
             return author;
         }
 
+        // Get list of authors by book id
+        [HttpGet("book/{id}")]
+        public async Task<ActionResult<IEnumerable<Author>>> GetAuthorByBookId(int id)
+        {
+          if (_context.Author == null)
+          {
+              return NotFound();
+          }
+            var bookAuthors = await _context.BookAuthor.Where(ba => ba.BookId == id).ToListAsync();
+            var authors = new List<Author>();
+            foreach (var bookAuthor in bookAuthors)
+            {
+                var author = await _context.Author.FindAsync(bookAuthor.AuthorId);
+                authors.Add(author);
+            }
+            return authors;
+        }
+
         // PUT: api/Author/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
