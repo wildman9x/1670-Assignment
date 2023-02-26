@@ -44,7 +44,7 @@ namespace assignment1.Controllers
               return NotFound();
           }
             var order = await _context.Order.FindAsync(id);
-
+            order.CartItems = await _context.CartItem.Where(c => c.OrderId == id).ToListAsync();
             if (order == null)
             {
                 return NotFound();
@@ -62,7 +62,10 @@ namespace assignment1.Controllers
               return NotFound();
           }
             var orders = await _context.Order.Where(o => o.Phone == phone).ToListAsync();
-
+            foreach (var item in orders)
+            {
+                item.CartItems = await _context.CartItem.Where(c => c.OrderId == item.Id).ToListAsync();
+            }
             if (orders == null)
             {
                 return NotFound();
@@ -140,22 +143,22 @@ namespace assignment1.Controllers
         }
 
         // Find all orders by phone number
-        [HttpGet("find/{phone}")]
-        public async Task<ActionResult<IEnumerable<Order>>> FindOrder(string phone)
-        {
-          if (_context.Order == null)
-          {
-              return NotFound();
-          }
-            var orders = await _context.Order.Where(o => o.Phone == phone).ToListAsync();
+        // [HttpGet("find/{phone}")]
+        // public async Task<ActionResult<IEnumerable<Order>>> FindOrder(string phone)
+        // {
+        //   if (_context.Order == null)
+        //   {
+        //       return NotFound();
+        //   }
+        //     var orders = await _context.Order.Where(o => o.Phone == phone).ToListAsync();
 
-            if (orders == null)
-            {
-                return NotFound();
-            }
+        //     if (orders == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return orders;
-        }
+        //     return orders;
+        // }
 
         // GET: api/CheckOut
         // Gather all the cart items and return them

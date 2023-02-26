@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using assignment1.Areas.Identity.Data;
 
@@ -11,9 +12,10 @@ using assignment1.Areas.Identity.Data;
 namespace assignment1.Migrations
 {
     [DbContext(typeof(assignment1IdentityDbContext))]
-    partial class assignment1IdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230226163822_Migration-5")]
+    partial class Migration5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
