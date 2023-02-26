@@ -16,6 +16,7 @@ namespace assignment1.Controllers
     public class OrderController : ControllerBase
     {
         private readonly assignment1IdentityDbContext _context;
+        static HttpClient client = new HttpClient();
 
         public OrderController(assignment1IdentityDbContext context)
         {
@@ -166,12 +167,8 @@ namespace assignment1.Controllers
         [HttpGet("checkout")]
         public async Task<ActionResult<IEnumerable<CartItem>>> CheckOut()
         {
-          var cart = HttpContext.Session.GetString("cart");
-            if (cart == null)
-            {
-                return NotFound();
-            }
-            List<CartItem> dataCart = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/Home/ListCart");
+            List<CartItem> dataCart = await response.Content.ReadAsAsync<List<CartItem>>();
             return dataCart;
         }
 
