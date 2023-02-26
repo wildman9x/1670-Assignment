@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using assignment1.Areas.Identity.Data;
 using assignment1.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace assignment1.Controllers
@@ -14,7 +16,7 @@ namespace assignment1.Controllers
     public class HomeController : ControllerBase
     {
         private readonly assignment1IdentityDbContext _context;
-
+        static HttpClient client = new HttpClient();
         public HomeController(assignment1IdentityDbContext context)
         {
             _context = context;
@@ -60,7 +62,7 @@ namespace assignment1.Controllers
                 }
                 HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
             }
-            return CreatedAtAction("GetBook", new { id = id }, id);
+            return CreatedAtAction("GetBook", new { book = await getDetailBook(id) });
 
         }
 
@@ -73,6 +75,7 @@ namespace assignment1.Controllers
             {
                 // create new cart
                 HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(new List<CartItem>()));
+                return new List<CartItem>();
             }
             List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
@@ -160,6 +163,7 @@ namespace assignment1.Controllers
             if (cart == null)
             {
                 HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(new List<CartItem>()));
+                return 0.0m;
             }
             List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
             if (dataCart == null)
@@ -206,7 +210,8 @@ namespace assignment1.Controllers
         // Get Detail Book
         public async Task<Book> getDetailBook(int id)
         {
-            var book = _context.Book.Where(x => x.Id == id).FirstOrDefault();
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/Book/" + id);
+            var book = await response.Content.ReadAsAsync<Book>();
             return book;
         }
     }

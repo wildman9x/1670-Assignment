@@ -58,7 +58,7 @@ namespace assignment1.Controllers
           {
               return NotFound();
           }
-            var bookGenre = await _context.BookGenre.Where(b => b.GenreId == id).ToListAsync();
+            var bookGenre = await _context.BookGenre.Where(b => b.BookId == id).ToListAsync();
 
             if (bookGenre == null)
             {
