@@ -50,6 +50,24 @@ namespace assignment1.Controllers
             return bookAuthor;
         }
 
+        // Find all author id by book id
+        [HttpGet("book/{id}")]
+        public async Task<ActionResult<IEnumerable<BookAuthor>>> GetBookAuthorByBookId(int id)
+        {
+          if (_context.BookAuthor == null)
+          {
+              return NotFound();
+          }
+            var bookAuthor = await _context.BookAuthor.Where(b => b.BookId == id).ToListAsync();
+
+            if (bookAuthor == null)
+            {
+                return NotFound();
+            }
+
+            return bookAuthor;
+        }
+
         // PUT: api/BookAuthors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
