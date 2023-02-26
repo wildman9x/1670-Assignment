@@ -7,6 +7,7 @@ export const AuthorDetails = () => {
   const id = useParams().id;
   const dispatch = useDispatch();
   const author = useSelector((state) => authorSelector.selectById(state, id));
+  const role = useSelector((state) => state.user.role);
 
   const [books, setBooks] = React.useState(null);
   // const [loadingAuthor, setLoadingAuthor] = React.useState(true);
@@ -39,7 +40,9 @@ export const AuthorDetails = () => {
           <h1>
             {author.firstName} {author.lastName}
           </h1>
-          <a href={"/author/update/" + author.id}>Update</a>
+          {role === "Admin" && (
+            <a href={"/author/update/" + author.id}>Update</a>
+          )}
         </div>
         <p>Birth Date: {author.birthDate}</p>
         <p>Birth Place: {author.birthPlace}</p>

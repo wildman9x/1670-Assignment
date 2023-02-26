@@ -51,23 +51,42 @@ export const NavMenu = () => {
               </NavItem>
             ))}
           </ul>
-          {user?.email ? (
-            <ul className="navbar-nav flex-grow">
-              <NavItem>
+          <ul className="navbar-nav flex-grow">
+            {user?.role === "Admin" && (
+              <>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/orders">
+                    Orders
+                  </NavLink>
+                </NavItem>
+              </>
+            )}
+            {user?.role === "User" && (
+              <>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/cart">
+                    Cart
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/my-orders">
+                    My Orders
+                  </NavLink>
+                </NavItem>
+              </>
+            )}
+            <NavItem>
+              {user?.email ? (
                 <NavLink tag={Link} className="text-dark" to="/logout">
                   Logout
                 </NavLink>
-              </NavItem>
-            </ul>
-          ) : (
-            <ul className="navbar-nav flex-grow">
-              <NavItem>
+              ) : (
                 <NavLink tag={Link} className="text-dark" to="/login">
                   Login
                 </NavLink>
-              </NavItem>
-            </ul>
-          )}
+              )}
+            </NavItem>
+          </ul>
         </Collapse>
       </Navbar>
     </header>

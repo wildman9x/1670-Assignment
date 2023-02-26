@@ -15,8 +15,7 @@ export const login = createAsyncThunk("user/login", async (user) => {
     },
     body: JSON.stringify(user),
   });
-  console.log(response);
-  return response;
+  return response.json();
 });
 
 export const register = createAsyncThunk(
@@ -51,28 +50,24 @@ export const logout = createAsyncThunk("user/logout", async () => {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    updateHideBalance: (state, action) => {
-      state.hideBalance = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(logout.fulfilled, (state) => {
       state.email = null;
       state.role = null;
     });
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.email = action.meta.arg.email;
+      state.role = action.payload?.pop();
+      state.loading = false;
+    });
+    builder.addCase(register.fulfilled, (state, action) => {
+      state.loading = false;
+    });
     builder.addMatcher(
       isAnyOf(login.pending, register.pending, logout.pending),
       (state) => {
         state.loading = true;
-      }
-    );
-    builder.addMatcher(
-      isAnyOf(login.fulfilled, register.fulfilled),
-      (state, action) => {
-        state.email = action.meta.arg.email;
-        // state.role = action.payload.role;
-        state.loading = false;
       }
     );
     builder.addMatcher(

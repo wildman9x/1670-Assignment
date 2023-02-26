@@ -7,12 +7,13 @@ import author from "./slices/author";
 import genre from "./slices/genre";
 import publisher from "./slices/publisher";
 import book from "./slices/book";
+import cart from "./slices/cart";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["user", "author", "genre", "publisher", "book"],
+  whitelist: ["user", "author", "genre", "publisher", "book", "cart"],
 };
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   genre,
   publisher,
   book,
+  cart,
 });
 
 const pReducer = persistReducer(persistConfig, rootReducer);

@@ -8,7 +8,7 @@ import { publisherSelector } from "../redux/slices/publisher";
 export const Home = () => {
   const dispatch = useDispatch();
   const books = useSelector(booksSelector.selectAll);
-  const booksState = useSelector((state) => state.book);
+  const role = useSelector((state) => state.user.role);
 
   useEffect(() => {
     dispatch(fetchBook());
@@ -18,7 +18,7 @@ export const Home = () => {
     <div>
       <div className="d-flex justify-content-between">
         <h1>Books</h1>
-        <a href="/book/create">Create book</a>
+        {role === "Admin" && <a href="/book/create">Create book</a>}
       </div>
 
       <table className="table table-striped" aria-labelledby="tabelLabel">

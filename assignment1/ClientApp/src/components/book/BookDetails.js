@@ -9,6 +9,8 @@ import { publisherSelector } from "../../redux/slices/publisher";
 export const BookDetails = () => {
   const id = useParams().id;
   const dispatch = useDispatch();
+  const role = useSelector((state) => state.user.role);
+
   const book = useSelector((state) => booksSelector.selectById(state, id));
   const authors = useSelector((state) =>
     book?.authorsId?.map((author) =>
@@ -34,7 +36,7 @@ export const BookDetails = () => {
         <div className="d-flex justify-content-between">
           <h1>{book.title}</h1>
 
-          <a href={"/book/update/" + book.id}>Update</a>
+          {role === "Admin" && <a href={"/book/update/" + book.id}>Update</a>}
         </div>
         <div className="d-flex justify-content-center">
           <img src={book.image} alt={book.title} style={{ height: "400px" }} />
@@ -68,6 +70,9 @@ export const BookDetails = () => {
               <a href={`/publisher/${publisher?.id}`}>{publisher?.name}</a>
             </p>
             <p>Publish Date: {book.publishDate}</p>
+            {role === "User" && (
+              <button className="btn btn-primary">Add to cart</button>
+            )}
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ export const GenreDetails = () => {
   const id = useParams().id;
   const dispatch = useDispatch();
   const genre = useSelector((state) => genreSelector.selectById(state, id));
+  const role = useSelector((state) => state.user.role);
 
   const [books, setBooks] = React.useState(null);
   const [loadingBooks, setLoadingBooks] = React.useState(true);
@@ -36,7 +37,7 @@ export const GenreDetails = () => {
       <div>
         <div className="d-flex justify-content-between">
           <h1>{genre.name}</h1>
-          <a href={"/genre/update/" + genre.id}>Update</a>
+          {role === "Admin" && <a href={"/genre/update/" + genre.id}>Update</a>}
         </div>
         <p>Description: {genre.description}</p>
       </div>

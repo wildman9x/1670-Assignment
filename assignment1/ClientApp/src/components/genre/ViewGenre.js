@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authorSelector, fetchAuthors } from "../../redux/slices/author";
 import { fetchGenres, genreSelector } from "../../redux/slices/genre";
 
 export const ViewGenre = () => {

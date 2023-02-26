@@ -25,14 +25,15 @@ const Login = () => {
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(
+    await dispatch(
       login({
         ...form,
         rememberMe: true,
       })
     );
+    window.location.href = "/";
   };
 
   return (

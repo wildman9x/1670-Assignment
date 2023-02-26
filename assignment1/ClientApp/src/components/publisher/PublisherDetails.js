@@ -9,6 +9,8 @@ export const PublisherDetails = () => {
   const publisher = useSelector((state) =>
     publisherSelector.selectById(state, id)
   );
+  const role = useSelector((state) => state.user.role);
+
   const [books, setBooks] = React.useState(null);
   const [loadingBooks, setLoadingBooks] = React.useState(true);
 
@@ -37,7 +39,9 @@ export const PublisherDetails = () => {
       <div>
         <div className="d-flex justify-content-between">
           <h1>{publisher.name}</h1>
-          <a href={"/publisher/update/" + publisher.id}>Update</a>
+          {role === "Admin" && (
+            <a href={"/publisher/update/" + publisher.id}>Update</a>
+          )}
         </div>
         <p>
           Address:
