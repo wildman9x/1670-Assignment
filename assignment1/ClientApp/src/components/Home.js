@@ -22,7 +22,9 @@ export const Home = () => {
         setLoading(false);
       });
   }, []);
-
+  console.log("====================================");
+  console.log(books);
+  console.log("====================================");
   return (
     <div>
       <h1>Books</h1>
@@ -47,20 +49,20 @@ export const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {books.map((book) => (
+            {books?.map((book) => (
               <tr key={book.id}>
                 <td>{book.title}</td>
                 <td>
-                  {book.authors.map((author) => {
+                  {book?.authors?.map((author) => {
                     return (
-                      <a key={author.id} href={`/author/${author.id}`}>
-                        {author.firstName} {author.lastName}
+                      <a key={author?.id} href={`/author/${author.id}`}>
+                        {author?.firstName} {author.lastName}
                       </a>
                     );
                   })}
                 </td>
                 <td>
-                  {book.genres.map((genre) => {
+                  {book?.genres?.map((genre) => {
                     return (
                       <a key={genre.id} href={`/genre/${genre.id}`}>
                         {genre.name}
@@ -69,8 +71,8 @@ export const Home = () => {
                   })}
                 </td>
                 <td>
-                  <a href={`/publisher/${book.publisher.id}`}>
-                    {book.publisher.name}
+                  <a href={`/publisher/${book?.publisher?.id}`}>
+                    {book?.publisher?.name}
                   </a>
                 </td>
                 <td>{book.publishDate}</td>

@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 export const ImageUpload = ({ onImageUpload }) => {
   const [image, setImage] = React.useState(null);
@@ -15,9 +16,11 @@ export const ImageUpload = ({ onImageUpload }) => {
         body: body,
       });
       const data = await response.json();
+      toast.success("Image uploaded successfully");
       onImageUpload(data?.image?.uri);
     } catch (error) {
       console.warn(error);
+      toast.error("Error uploading image");
     } finally {
       setLoading(false);
     }

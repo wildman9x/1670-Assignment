@@ -61,22 +61,18 @@ export const CreateAuthor = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    console.log("====================================");
-    console.log(form);
-
-    formData.append("firstName", form.firstName);
-    formData.append("lastName", form.lastName);
-    formData.append("birthDate", form.birthDate);
-    formData.append("birthPlace", form.birthPlace);
-    formData.append("deathDate", form.deathDate);
-    formData.append("deathPlace", form.deathPlace);
-    formData.append("biography", form.biography);
-    formData.append("image", imageUri);
+    const body = {
+      ...form,
+      image: imageUri,
+    };
 
     fetch("/api/Author", {
       method: "POST",
-      body: formData,
+      body: JSON.stringify(body),
+      headers: {
+        Accept: "text/plain",
+        "Content-Type": "application/json",
+      },
     })
       .then((response) => response.json())
       .then((data) => {
