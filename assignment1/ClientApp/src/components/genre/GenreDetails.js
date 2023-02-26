@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getPublisher, publisherSelector } from "../../redux/slices/publisher";
+import { genreSelector, getGenre } from "../../redux/slices/genre";
 
-export const PublisherDetails = () => {
+export const GenreDetails = () => {
   const id = useParams().id;
   const dispatch = useDispatch();
-  const publisher = useSelector((state) =>
-    publisherSelector.selectById(state, id)
-  );
+  const genre = useSelector((state) => genreSelector.selectById(state, id));
+
   const [books, setBooks] = React.useState(null);
   const [loadingBooks, setLoadingBooks] = React.useState(true);
 
   useEffect(() => {
-    dispatch(getPublisher(id));
+    dispatch(getGenre(id));
   }, [dispatch, id]);
 
   useEffect(() => {
-    fetch("/api/Book/GetBooksByPublisher/" + id, {
+    fetch("/api/Book/GetBooksByGenre/" + id, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -36,29 +35,10 @@ export const PublisherDetails = () => {
     <div>
       <div>
         <div className="d-flex justify-content-between">
-          <h1>{publisher.name}</h1>
-          <a href={"/publisher/update/" + publisher.id}>Update</a>
+          <h1>{genre.name}</h1>
+          <a href={"/genre/update/" + genre.id}>Update</a>
         </div>
-        <p>
-          Address:
-          {publisher.address}
-        </p>
-        <p>
-          Country:
-          {publisher.country}
-        </p>
-        <p>
-          Phone:
-          {publisher.phone}
-        </p>
-        <img
-          src={publisher.image}
-          alt={publisher.name}
-          style={{
-            width: "200px",
-            objectFit: "cover",
-          }}
-        />
+        <p>Description: {genre.description}</p>
       </div>
 
       {loadingBooks ? (

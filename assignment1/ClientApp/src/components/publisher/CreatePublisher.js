@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
+import { ImageUpload } from "../common/ImageUpload";
 
 const inputs = [
   {
@@ -9,14 +10,27 @@ const inputs = [
     placeholder: "Enter name",
   },
   {
-    label: "Description",
+    label: "Address",
     type: "text",
-    id: "description",
-    placeholder: "Enter description",
+    id: "address",
+    placeholder: "Enter address",
+  },
+  {
+    label: "Country",
+    type: "text",
+    id: "country",
+    placeholder: "Enter country",
+  },
+  {
+    label: "Phone",
+    type: "text",
+    id: "phone",
+    placeholder: "Enter phone",
   },
 ];
 
-export const CreateGenre = () => {
+export const CreatePublisher = () => {
+  const [imageUri, setImageUri] = React.useState("");
   const [form, setForm] = React.useState({
     name: "",
     description: "",
@@ -25,9 +39,14 @@ export const CreateGenre = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("/api/Genre", {
+    const body = {
+      ...form,
+      image: imageUri,
+    };
+
+    fetch("/api/Publisher", {
       method: "POST",
-      body: JSON.stringify(form),
+      body: JSON.stringify(body),
       headers: {
         Accept: "text/plain",
         "Content-Type": "application/json",
@@ -36,9 +55,9 @@ export const CreateGenre = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data?.id) {
-          toast.success("Genre created successfully");
+          toast.success("Publisher created successfully");
         } else {
-          toast.error("Error creating genre");
+          toast.error("Error creating Publisher");
         }
       })
       .catch((error) => {
@@ -48,7 +67,7 @@ export const CreateGenre = () => {
 
   return (
     <div>
-      <h1>Create Genre</h1>
+      <h1>Create Publisher</h1>
       <form>
         {inputs.map((input) => (
           <div key={input.id} className="form-group">
@@ -62,7 +81,10 @@ export const CreateGenre = () => {
             />
           </div>
         ))}
-
+        <div className="form-group">
+          <label htmlFor="image">Image</label>
+          <ImageUpload onImageUpload={setImageUri} />
+        </div>
         <button
           type="submit"
           className="btn btn-primary"
