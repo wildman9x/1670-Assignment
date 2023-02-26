@@ -107,6 +107,20 @@ namespace assignment1.Controllers
           {
               return Problem("Entity set 'assignment1IdentityDbContext.Book'  is null.");
           }
+            foreach (var item in book.AuthorsId)
+            {
+                // Add the book id to the book author model
+                item.BookId = book.Id;
+                // Add the book author model to the database
+                _context.BookAuthor.Add(item);
+            }
+            foreach (var item in book.GenresId)
+            {
+                // Add the book id to the book genre model
+                item.BookId = book.Id;
+                // Add the book genre model to the database
+                _context.BookGenre.Add(item);
+            }
             _context.Book.Add(book);
             await _context.SaveChangesAsync();
 
