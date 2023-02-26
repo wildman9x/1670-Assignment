@@ -50,6 +50,24 @@ namespace assignment1.Controllers
             return bookGenre;
         }
 
+        // Get all book id by genre id
+        [HttpGet("book/{id}")]
+        public async Task<ActionResult<IEnumerable<BookGenre>>> GetBookGenreByGenreId(int id)
+        {
+          if (_context.BookGenre == null)
+          {
+              return NotFound();
+          }
+            var bookGenre = await _context.BookGenre.Where(b => b.GenreId == id).ToListAsync();
+
+            if (bookGenre == null)
+            {
+                return NotFound();
+            }
+
+            return bookGenre;
+        }
+
         // PUT: api/BookGenres/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

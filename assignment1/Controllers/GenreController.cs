@@ -81,6 +81,25 @@ namespace assignment1.Controllers
             return NoContent();
         }
 
+        // Get list of genres by book id
+        [HttpGet("book/{id}")]
+        public async Task<ActionResult<IEnumerable<Genre>>> GetGenreByBookId(int id)
+        {
+          if (_context.Genre == null)
+          {
+              return NotFound();
+          }
+            var bookGenres = await _context.BookGenre.Where(b => b.BookId == id).ToListAsync();
+            var genres = new List<Genre>();
+            foreach (var bookGenre in bookGenres)
+            {
+                var genre = await _context.Genre.FindAsync(bookGenre.GenreId);
+                genres.Add(genre);
+            }
+            return genres;
+        }
+        
+
         // POST: api/Genre
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
