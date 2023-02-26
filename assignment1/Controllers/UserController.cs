@@ -98,7 +98,7 @@ namespace assignment1.Controllers
             var result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded) {
                 await _userManager.AddToRoleAsync(user, role);
-                return Ok();
+                return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
             }
             return BadRequest();
         }
@@ -131,7 +131,7 @@ namespace assignment1.Controllers
         public async Task<IActionResult> UpdateUser(SystemUser user) {
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded) {
-                return Ok();
+                return Ok(user);
             }
             return BadRequest();
         }
@@ -155,10 +155,12 @@ namespace assignment1.Controllers
         public async Task<IActionResult> CreateRole(string role) {
             var result = await _roleManager.CreateAsync(new IdentityRole(role));
             if (result.Succeeded) {
-                return Ok();
+                return Ok(await _roleManager.FindByNameAsync(role));
             }
             return BadRequest();
         }
+
+        
 
         // Get all roles
         [HttpGet("GetRoles")]
@@ -174,7 +176,7 @@ namespace assignment1.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded) {
                     _logger.LogInformation("User logged in.");
-                    return Ok();
+                    return Ok(await _userManager.GetRolesAsync(await _userManager.GetUserAsync(User)));
                 }
                 if (result.RequiresTwoFactor) {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = LoginInput.RememberMe });
