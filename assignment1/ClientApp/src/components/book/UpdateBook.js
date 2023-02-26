@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { authorSelector } from "../../redux/slices/author";
+import { booksSelector } from "../../redux/slices/book";
 import { genreSelector } from "../../redux/slices/genre";
 import { publisherSelector } from "../../redux/slices/publisher";
 import { ImageUpload } from "../common/ImageUpload";
@@ -27,19 +29,26 @@ const inputs = [
   },
 ];
 
-export const CreateBook = () => {
+export const UpdateBook = () => {
+  const id = useParams().id;
+  const book = useSelector((state) => booksSelector.selectById(state, id));
+  console.log(book);
+  const authorsId = book?.authorsId?.map((author) => author?.authorId);
+  const genresId = book?.genresId?.map((genre) => genre?.genreId);
+  const publisherId = book?.publisherId;
+
   const authors = useSelector(authorSelector.selectAll);
   const genres = useSelector(genreSelector.selectAll);
   const publishers = useSelector(publisherSelector.selectAll);
 
-  const [imageUri, setImageUri] = React.useState("");
+  const [imageUri, setImageUri] = React.useState(book.image);
   const [form, setForm] = React.useState({
-    title: "",
-    publishDate: "",
-    price: "",
-    authorsId: [],
-    genresId: [],
-    publisherId: "",
+    title: book.title,
+    publishDate: book.publishDate,
+    price: book.price,
+    authorsId: authorsId,
+    genresId: genresId,
+    publisherId: publisherId,
   });
 
   const handleSubmit = (e) => {
@@ -56,8 +65,8 @@ export const CreateBook = () => {
 
     console.log(book);
 
-    fetch("/api/Book", {
-      method: "POST",
+    fetch(`/api/Book/${id}`, {
+      method: "PUT",
       headers: {
         Accept: "text/plain",
         "Content-Type": "application/json",
@@ -67,32 +76,58 @@ export const CreateBook = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.id) {
-          toast.success("Book created successfully");
-        } else {
-          toast.error("Error creating book");
+          toast.success("Book Update successfully");
         }
       });
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+
+    fetch(`/api/Book/${id}`, {
+      method: "DELETE",
+    }).then((response) => {
+      console.log(response);
+      if (response.status === 204) {
+        toast.success("Book Delete successfully");
+      }
+    });
+  };
+
   return (
     <div>
-      <h1>Create Book</h1>
+      <div className="d-flex justify-content-between">
+        <h1>Create Book</h1>
+
+        <button className="btn btn-danger" onClick={handleDelete}>
+          Delete
+        </button>
+      </div>
       <form>
-        {inputs.map((input) => (
-          <div key={input.id} className="form-group">
-            <label htmlFor={input.id}>{input.label}</label>
-            <input
-              type={input.type}
-              className="form-control"
-              id={input.id}
-              placeholder={input.placeholder}
-              onChange={(e) => setForm({ ...form, [input.id]: e.target.value })}
-            />
-          </div>
-        ))}
+        {inputs.map((input) => {
+          let value = form[input.id];
+          if (input.type === "date") {
+            value = value?.split("T")[0];
+          }
+          return (
+            <div key={input.id} className="form-group">
+              <label htmlFor={input.id}>{input.label}</label>
+              <input
+                type={input.type}
+                className="form-control"
+                id={input.id}
+                defaultValue={value}
+                placeholder={input.placeholder}
+                onChange={(e) =>
+                  setForm({ ...form, [input.id]: e.target.value })
+                }
+              />
+            </div>
+          );
+        })}
         <div className="form-group">
           <label htmlFor="image">Image</label>
-          <ImageUpload onImageUpload={setImageUri} />
+          <ImageUpload onImageUpload={setImageUri} imageUri={imageUri} />
         </div>
         <div className="form-group">
           <label htmlFor="authors">Authors</label>
@@ -100,6 +135,7 @@ export const CreateBook = () => {
             multiple
             className="form-control"
             id="authors"
+            defaultValue={form.authorsId}
             onChange={(e) =>
               setForm({
                 ...form,
@@ -125,6 +161,7 @@ export const CreateBook = () => {
             multiple
             className="form-control"
             id="genres"
+            defaultValue={form.genresId}
             onChange={(e) =>
               setForm({
                 ...form,
@@ -149,6 +186,7 @@ export const CreateBook = () => {
           <select
             className="form-control"
             id="genres"
+            defaultValue={form.publisherId}
             onChange={(e) =>
               setForm({
                 ...form,

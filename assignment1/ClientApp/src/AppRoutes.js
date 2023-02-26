@@ -2,6 +2,9 @@ import { AuthorDetails } from "./components/author/AuthorDetails";
 import { CreateAuthor } from "./components/author/CreateAuthor";
 import { UpdateAuthor } from "./components/author/UpdateAuthor";
 import { ViewAuthors } from "./components/author/ViewAuthors";
+import { BookDetails } from "./components/book/BookDetails";
+import { CreateBook } from "./components/book/CreateBook";
+import { UpdateBook } from "./components/book/UpdateBook";
 import { CreateGenre } from "./components/genre/CreateGenre";
 import { GenreDetails } from "./components/genre/GenreDetails";
 import { UpdateGenre } from "./components/genre/UpdateGenre";
@@ -12,6 +15,7 @@ import { PublisherDetails } from "./components/publisher/PublisherDetails";
 import { UpdatePublisher } from "./components/publisher/UpdatePublisher";
 import { ViewPublisher } from "./components/publisher/ViewPublisher";
 import Login from "./components/user/Login";
+import { Logout } from "./components/user/Logout";
 import Register from "./components/user/Register";
 
 const AppRoutes = [
@@ -22,6 +26,10 @@ const AppRoutes = [
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
   {
     path: "/register",
@@ -78,6 +86,18 @@ const AppRoutes = [
   {
     path: "/publisher/update/:id",
     element: <UpdatePublisher />,
+  },
+  {
+    path: "/book/:id",
+    element: <BookDetails />,
+  },
+  {
+    path: "/book/create",
+    element: <CreateBook />,
+  },
+  {
+    path: "/book/update/:id",
+    element: <UpdateBook />,
   },
 ];
 

@@ -56,9 +56,31 @@ export const UpdateGenre = () => {
       });
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    fetch("/api/Genre/" + id, {
+      method: "DELETE",
+      headers: {
+        Accept: "text/plain",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  };
+
   return (
     <div>
-      <h1>Update Genre</h1>
+      <div className="d-flex justify-content-between">
+        <h1>Update Genre</h1>
+        <button className="btn btn-danger" onClick={handleDelete}>
+          Delete
+        </button>
+      </div>
       <form>
         {inputs.map((input) => {
           let value = form[input.id];

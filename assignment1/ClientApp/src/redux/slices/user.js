@@ -15,7 +15,7 @@ export const login = createAsyncThunk("user/login", async (user) => {
     },
     body: JSON.stringify(user),
   });
-
+  console.log(response);
   return response;
 });
 
@@ -26,11 +26,13 @@ export const register = createAsyncThunk(
       method: "POST",
       headers: {
         Accept: "*/*",
-        "content-type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify({ ...user, role: admin ? "Admin" : "User" }),
     });
+    console.log(response);
+
     const data = await response.json();
+    console.log(data);
     return data;
   }
 );

@@ -16,35 +16,35 @@ export const Home = () => {
 
   return (
     <div>
-      <h1>Books</h1>
-      {booksState.loading ? (
-        <p>Loading...</p>
-      ) : (
-        <table className="table table-striped" aria-labelledby="tabelLabel">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Image</th>
-              <th>
-                <a href="/author">Authors</a>
-              </th>
-              <th>
-                <a href="/genre">Genres</a>
-              </th>
-              <th>
-                <a href="/publisher">Publisher</a>
-              </th>
-              <th>Publish Date</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {books?.map((book) => (
-              <RenderBook key={book.id} book={book} />
-            ))}
-          </tbody>
-        </table>
-      )}
+      <div className="d-flex justify-content-between">
+        <h1>Books</h1>
+        <a href="/book/create">Create book</a>
+      </div>
+
+      <table className="table table-striped" aria-labelledby="tabelLabel">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Image</th>
+            <th>
+              <a href="/author">Authors</a>
+            </th>
+            <th>
+              <a href="/genre">Genres</a>
+            </th>
+            <th>
+              <a href="/publisher">Publisher</a>
+            </th>
+            <th>Publish Date</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {books?.map((book) => (
+            <RenderBook key={book.id} book={book} />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
@@ -99,7 +99,9 @@ const RenderBook = ({ book }) => {
         <a href={`/publisher/${publisher?.id}`}>{publisher?.name}</a>
       </td>
       <td>{book.publishDate}</td>
-      <td>{book.price}</td>
+      <td>
+        <a href={`/book/${book.id}`}>Details</a>
+      </td>
     </tr>
   );
 };
