@@ -1,24 +1,15 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { authorSelector, fetchAuthors } from "../../redux/slices/author";
 
 export const ViewAuthors = () => {
-  const [authors, setAuthors] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const dispatch = useDispatch();
+  const authors = useSelector(authorSelector.selectAll);
+  const authorState = useSelector((state) => state.author);
 
   useEffect(() => {
-    fetch("/api/Author", {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setAuthors(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.warn(error);
-        setLoading(false);
-      });
-  }, []);
+    dispatch(fetchAuthors());
+  }, [dispatch]);
 
   return (
     <div>
@@ -32,7 +23,7 @@ export const ViewAuthors = () => {
         <h1>View Authors</h1>
         <a href="/author/create">Create Author</a>
       </div>
-      {loading ? (
+      {authorState.loading ? (
         <p>Loading...</p>
       ) : (
         <table className="table table-striped" aria-labelledby="tabelLabel">

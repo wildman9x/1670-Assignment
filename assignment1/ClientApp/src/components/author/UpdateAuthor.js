@@ -1,5 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { authorSelector } from "../../redux/slices/author";
 import { ImageUpload } from "../common/ImageUpload";
 
 const inputs = [
@@ -47,40 +50,38 @@ const inputs = [
   },
 ];
 
-export const CreateAuthor = () => {
-  const [imageUri, setImageUri] = React.useState("");
-  const [form, setForm] = React.useState({
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    birthPlace: "",
-    deathDate: "",
-    deathPlace: "",
-    biography: "",
-  });
+export const UpdateAuthor = () => {
+  const id = useParams().id;
+  const author = useSelector((state) => authorSelector.selectById(state, id));
+
+  const [imageUri, setImageUri] = React.useState(author?.image);
+  const [form, setForm] = React.useState(author);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const body = {
-      ...form,
+      id,
       image: imageUri,
+      ...form,
     };
 
-    fetch("/api/Author", {
-      method: "POST",
+    fetch("/api/Author/" + id, {
+      method: "PUT",
       body: JSON.stringify(body),
       headers: {
         Accept: "text/plain",
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.json())
       .then((data) => {
-        if (data?.id) {
-          toast.success("Author created successfully");
+        console.log(data);
+
+        if (data.status === 204) {
+          toast.success("Author update successfully");
+          window.location.href = "/author/" + id;
         } else {
-          toast.error("Error creating author");
+          toast.error("Error updating author");
         }
       })
       .catch((error) => {
@@ -90,23 +91,32 @@ export const CreateAuthor = () => {
 
   return (
     <div>
-      <h1>Create Author</h1>
+      <h1>Update Author</h1>
       <form>
-        {inputs.map((input) => (
-          <div key={input.id} className="form-group">
-            <label htmlFor={input.id}>{input.label}</label>
-            <input
-              type={input.type}
-              className="form-control"
-              id={input.id}
-              placeholder={input.placeholder}
-              onChange={(e) => setForm({ ...form, [input.id]: e.target.value })}
-            />
-          </div>
-        ))}
+        {inputs.map((input) => {
+          let value = form[input.id];
+          if (input.type === "date") {
+            value = value?.split("T")[0];
+          }
+          return (
+            <div key={input.id} className="form-group">
+              <label htmlFor={input.id}>{input.label}</label>
+              <input
+                type={input.type}
+                className="form-control"
+                id={input.id}
+                defaultValue={value}
+                placeholder={input.placeholder}
+                onChange={(e) =>
+                  setForm({ ...form, [input.id]: e.target.value })
+                }
+              />
+            </div>
+          );
+        })}
         <div className="form-group">
           <label htmlFor="image">Image</label>
-          <ImageUpload onImageUpload={setImageUri} />
+          <ImageUpload imageUri={imageUri} onImageUpload={setImageUri} />
         </div>
         <button
           type="submit"

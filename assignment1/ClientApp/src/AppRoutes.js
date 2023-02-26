@@ -1,9 +1,9 @@
 import { AuthorDetails } from "./components/author/AuthorDetails";
 import { CreateAuthor } from "./components/author/CreateAuthor";
+import { UpdateAuthor } from "./components/author/UpdateAuthor";
 import { ViewAuthors } from "./components/author/ViewAuthors";
-import { Counter } from "./components/Counter";
-import { DisplayImages } from "./components/DisplayImages";
-import { FetchData } from "./components/FetchData";
+import { CreateGenre } from "./components/genre/CreateGenre";
+import { ViewGenre } from "./components/genre/ViewGenre";
 import { Home } from "./components/Home";
 import { UploadImage } from "./components/UploadImage";
 import Login from "./components/user/Login";
@@ -15,15 +15,15 @@ const AppRoutes = [
     element: <Home />,
   },
   {
-    path: "/user/register",
-    element: <Register />,
-  },
-  {
-    path: "/user/login",
+    path: "/login",
     element: <Login />,
   },
   {
-    path: "/user/login",
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/register/:admin",
     element: <Register />,
   },
   {
@@ -39,8 +39,16 @@ const AppRoutes = [
     element: <CreateAuthor />,
   },
   {
-    path: "/upload-image",
-    element: <UploadImage />,
+    path: "/author/update/:id",
+    element: <UpdateAuthor />,
+  },
+  {
+    path: "/genre",
+    element: <ViewGenre />,
+  },
+  {
+    path: "/genre/create",
+    element: <CreateGenre />,
   },
 ];
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   Collapse,
@@ -10,13 +11,11 @@ import {
 } from "reactstrap";
 import "./NavMenu.css";
 
-const navPaths = [
-  { path: "/", name: "Home" },
-  { path: "/upload-image", name: "Upload Image" },
-  { path: "/display-image", name: "Display Image" },
-];
+const navPaths = [{ path: "/", name: "Home" }];
 
 export const NavMenu = () => {
+  const user = useSelector((state) => state.user);
+
   const [state, setState] = useState({
     collapsed: true,
   });
@@ -39,7 +38,7 @@ export const NavMenu = () => {
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse
-          className="d-sm-inline-flex flex-sm-row-reverse"
+          className="d-sm-inline-flex flex-sm-row justify-content-sm-between"
           isOpen={!state.collapsed}
           navbar
         >
@@ -52,18 +51,23 @@ export const NavMenu = () => {
               </NavItem>
             ))}
           </ul>
-          <ul className="navbar-nav flex-grow">
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/user/register">
-                Register
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/user/login">
-                Login
-              </NavLink>
-            </NavItem>
-          </ul>
+          {user?.email ? (
+            <ul className="navbar-nav flex-grow">
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/logout">
+                  Logout
+                </NavLink>
+              </NavItem>
+            </ul>
+          ) : (
+            <ul className="navbar-nav flex-grow">
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/login">
+                  Login
+                </NavLink>
+              </NavItem>
+            </ul>
+          )}
         </Collapse>
       </Navbar>
     </header>
