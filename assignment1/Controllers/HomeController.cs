@@ -214,6 +214,25 @@ namespace assignment1.Controllers
             return Ok(await getDetailBook(id));
         }
 
+        // Count number of books in cart
+        [HttpGet("CountCart")]
+        public async Task<ActionResult<int>> countCart()
+        {
+            var cart = HttpContext.Session.GetString("cart");
+            if (cart == null)
+            {
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(new List<CartItem>()));
+                return 0;
+            }
+            List<CartItem>? dataCart = JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            if (dataCart == null)
+            {
+                return NotFound();
+            }
+            
+            return dataCart.Count;
+        }
+
         [HttpGet("Book/{id}")]
         // Get Detail Book
         public async Task<Book> getDetailBook(int id)
