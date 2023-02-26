@@ -32,6 +32,10 @@ public class assignment1IdentityDbContext : IdentityDbContext<SystemUser>
 
     public DbSet<assignment1.Models.Order>? Order { get; set; }
 
+    public DbSet<assignment1.Models.BookGenre>? BookGenre { get; set; }
+
+    public DbSet<assignment1.Models.BookAuthor>? BookAuthor { get; set; }
+
     
 
     

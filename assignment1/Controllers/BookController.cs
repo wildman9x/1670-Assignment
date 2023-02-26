@@ -143,8 +143,9 @@ namespace assignment1.Controllers
             {
                 return NotFound();
             }
-            var genreToFind = await _context.Genre.FindAsync(genreId);
-            var book = await _context.Book.Where(b => b.Genres.Contains(genreToFind)).ToListAsync();
+            // Check the genreId with bookgenre model
+            var genreToFind = await _context.BookGenre.FindAsync(genreId);
+            var book = await _context.Book.Where(b => b.GenresId.Contains(genreToFind)).ToListAsync();
 
             if (book == null)
             {
@@ -163,8 +164,8 @@ namespace assignment1.Controllers
             {
                 return NotFound();
             }
-            var authorToFind = await _context.Author.FindAsync(authorId);
-            var book = await _context.Book.Where(b => b.Authors.Contains(authorToFind)).ToListAsync();
+            var authorToFind = await _context.BookAuthor.FindAsync(authorId);
+            var book = await _context.Book.Where(b => b.AuthorsId.Contains(authorToFind)).ToListAsync();
 
             if (book == null)
             {
@@ -183,8 +184,8 @@ namespace assignment1.Controllers
             {
                 return NotFound();
             }
-            var publisherToFind = await _context.Publisher.FindAsync(publisherId);
-            var book = await _context.Book.Where(b => b.Publisher == publisherToFind).ToListAsync();
+            // var publisherToFind = await _context.Publisher.FindAsync(publisherId);
+            var book = await _context.Book.Where(b => b.PublisherId == publisherId).ToListAsync();
 
             if (book == null)
             {
