@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using assignment2.Data;
 using assignment2.Models;
@@ -56,7 +58,7 @@ builder.Services.AddTransient<IAzureStorage, AzureStorage>();
 Log.Information("Services has been successfully added...");
 
 var app = builder.Build();
-
+app.UseSession();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -78,7 +80,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseIdentityServer();
 app.UseAuthorization();
-app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",

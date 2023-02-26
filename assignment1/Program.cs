@@ -51,8 +51,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
@@ -64,7 +66,7 @@ app.MapControllerRoute(
 
 app.MapFallbackToFile("index.html"); ;
 
-app.UseSession();
+
 
 
 app.Run();

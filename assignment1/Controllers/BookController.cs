@@ -64,6 +64,18 @@ namespace assignment1.Controllers
                 return NotFound();
             }
 
+            // Look through the BookAuthor model and find the matching book id
+                HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/BookAuthors/book/" + book.Id);
+                var authorIdToFind = await response.Content.ReadAsAsync<List<BookAuthor>>();
+                book.AuthorsId = authorIdToFind.Where(a => a.BookId == book.Id).ToList();
+
+
+                // Look through the BookAuthor model and find the matching book id
+                HttpResponseMessage response2 = await client.GetAsync("https://localhost:7202/api/BookGenres/book/" + book.Id);
+                var genreIdToFind = await response2.Content.ReadAsAsync<List<BookGenre>>();
+                // Add the genre id to the book where the book id matches
+                book.GenresId = genreIdToFind.Where(g => g.BookId == book.Id).ToList();
+
             return book;
         }
 
