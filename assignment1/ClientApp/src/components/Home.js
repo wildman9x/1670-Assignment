@@ -1,26 +1,85 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from "react";
 
-export class Home extends Component {
-  static displayName = Home.name;
+export const Home = () => {
+  const [books, setBooks] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
-  render() {
-    return (
-      <div>
-        <h1>Hello, world!</h1>
-        <p>Welcome to your new single-page application, built with:</p>
-        <ul>
-          <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-          <li><a href='https://facebook.github.io/react/'>React</a> for client-side code</li>
-          <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-        </ul>
-        <p>To help you get started, we have also set up:</p>
-        <ul>
-          <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-          <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-          <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-        </ul>
-        <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
-      </div>
-    );
-  }
-}
+  console.log(books);
+
+  useEffect(() => {
+    fetch("/api/Book", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        setBooks(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.warn(error);
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div>
+      <h1>Books</h1>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <table className="table table-striped" aria-labelledby="tabelLabel">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>
+                <a href="/author">Authors</a>
+              </th>
+              <th>
+                <a href="/genre">Genres</a>
+              </th>
+              <th>
+                <a href="/publisher">Publisher</a>
+              </th>
+              <th>Publish Date</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {books.map((book) => (
+              <tr key={book.id}>
+                <td>{book.title}</td>
+                <td>
+                  {book.authors.map((author) => {
+                    return (
+                      <a key={author.id} href={`/author/${author.id}`}>
+                        {author.firstName} {author.lastName}
+                      </a>
+                    );
+                  })}
+                </td>
+                <td>
+                  {book.genres.map((genre) => {
+                    return (
+                      <a key={genre.id} href={`/genre/${genre.id}`}>
+                        {genre.name}
+                      </a>
+                    );
+                  })}
+                </td>
+                <td>
+                  <a href={`/publisher/${book.publisher.id}`}>
+                    {book.publisher.name}
+                  </a>
+                </td>
+                <td>{book.publishDate}</td>
+                <td>{book.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+};

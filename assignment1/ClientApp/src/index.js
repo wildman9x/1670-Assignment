@@ -1,19 +1,24 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import "bootstrap/dist/css/bootstrap.css";
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const rootElement = document.getElementById('root');
+const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
+const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
   <BrowserRouter basename={baseUrl}>
     <App />
-  </BrowserRouter>);
+    <ToastContainer autoClose={2000} />
+  </BrowserRouter>
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -7,64 +8,64 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import { Link } from "react-router-dom";
 import "./NavMenu.css";
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+const navPaths = [
+  { path: "/", name: "Home" },
+  { path: "/upload-image", name: "Upload Image" },
+  { path: "/display-image", name: "Display Image" },
+];
 
-  constructor(props) {
-    super(props);
+export const NavMenu = () => {
+  const [state, setState] = useState({
+    collapsed: true,
+  });
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true,
-    };
+  function toggleNavbar() {
+    setState((prevState) => ({
+      collapsed: !prevState.collapsed,
+    }));
   }
 
-  toggleNavbar() {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  }
-
-  render() {
-    return (
-      <header>
-        <Navbar
-          className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
-          container
-          light
+  return (
+    <header>
+      <Navbar
+        className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
+        container
+        light
+      >
+        <NavbarBrand tag={Link} to="/">
+          assignment1
+        </NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+        <Collapse
+          className="d-sm-inline-flex flex-sm-row-reverse"
+          isOpen={!state.collapsed}
+          navbar
         >
-          <NavbarBrand tag={Link} to="/">
-            assignment1
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse
-            className="d-sm-inline-flex flex-sm-row-reverse"
-            isOpen={!this.state.collapsed}
-            navbar
-          >
-            <ul className="navbar-nav flex-grow">
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">
-                  Home
+          <ul className="navbar-nav flex-grow">
+            {navPaths.map((path) => (
+              <NavItem key={path.path}>
+                <NavLink tag={Link} className="text-dark" to={path.path}>
+                  {path.name}
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/upload-image">
-                  Upload Image
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/display-image">
-                  Display Image
-                </NavLink>
-              </NavItem>
-            </ul>
-          </Collapse>
-        </Navbar>
-      </header>
-    );
-  }
-}
+            ))}
+          </ul>
+          <ul className="navbar-nav flex-grow">
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" to="/user/register">
+                Register
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" to="/user/login">
+                Login
+              </NavLink>
+            </NavItem>
+          </ul>
+        </Collapse>
+      </Navbar>
+    </header>
+  );
+};
