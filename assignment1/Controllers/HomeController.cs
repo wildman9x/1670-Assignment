@@ -33,7 +33,7 @@ namespace assignment1.Controllers
                {
                    new CartItem
                    {
-                       Book = book,
+                       BookId = id,
                        Quantity = 1
                    }
                };
@@ -46,7 +46,7 @@ namespace assignment1.Controllers
                 bool check = true;
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].Book.Id == id)
+                    if (dataCart[i].BookId == id)
                     {
                         dataCart[i].Quantity++;
                         check = false;
@@ -56,7 +56,7 @@ namespace assignment1.Controllers
                 {
                     dataCart.Add(new CartItem
                     {
-                        Book = await getDetailBook(id),
+                        BookId = id,
                         Quantity = 1
                     });
                 }
@@ -106,7 +106,7 @@ namespace assignment1.Controllers
                 {
                     foreach (var item in dataCart)
                     {
-                        if (item.Book.Id == id)
+                        if (item.BookId == id)
                         {
                             dataCart.Remove(item);
                             break;
@@ -119,7 +119,7 @@ namespace assignment1.Controllers
             {
                 for (int i = 0; i < dataCart.Count; i++)
                 {
-                    if (dataCart[i].Book.Id == id)
+                    if (dataCart[i].BookId == id)
                     {
                         dataCart[i].Quantity = Quantity;
                     }
@@ -146,7 +146,7 @@ namespace assignment1.Controllers
             }
             for (int i = 0; i < dataCart.Count; i++)
             {
-                if (dataCart[i].Book.Id == id)
+                if (dataCart[i].BookId == id)
                 {
                     dataCart.RemoveAt(i);
                 }
@@ -181,7 +181,9 @@ namespace assignment1.Controllers
             decimal total = 0.0m;
             for (int i = 0; i < dataCart.Count; i++)
             {
-                total += dataCart[i].Book.Price * dataCart[i].Quantity;
+                Book book = await getDetailBook(dataCart[i].BookId);
+                var price = book.Price;
+                total += price * dataCart[i].Quantity;
             }
             return total;
         }
@@ -202,7 +204,7 @@ namespace assignment1.Controllers
             }
             for (int i = 0; i < dataCart.Count; i++)
             {
-                if (dataCart[i].Book.Id == id)
+                if (dataCart[i].BookId == id)
                 {
                     if (dataCart[i].Quantity > 1)
                     {
