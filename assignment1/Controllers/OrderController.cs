@@ -16,6 +16,7 @@ namespace assignment1.Controllers
     public class OrderController : ControllerBase
     {
         private readonly assignment1IdentityDbContext _context;
+        static HttpClient client = new HttpClient();
 
         public OrderController(assignment1IdentityDbContext context)
         {
@@ -44,7 +45,7 @@ namespace assignment1.Controllers
               return NotFound();
           }
             var order = await _context.Order.FindAsync(id);
-
+            order.CartItems = await _context.CartItem.Where(c => c.OrderId == id).ToListAsync();
             if (order == null)
             {
                 return NotFound();
@@ -62,7 +63,10 @@ namespace assignment1.Controllers
               return NotFound();
           }
             var orders = await _context.Order.Where(o => o.Phone == phone).ToListAsync();
-
+            foreach (var item in orders)
+            {
+                item.CartItems = await _context.CartItem.Where(c => c.OrderId == item.Id).ToListAsync();
+            }
             if (orders == null)
             {
                 return NotFound();
@@ -140,22 +144,22 @@ namespace assignment1.Controllers
         }
 
         // Find all orders by phone number
-        [HttpGet("find/{phone}")]
-        public async Task<ActionResult<IEnumerable<Order>>> FindOrder(string phone)
-        {
-          if (_context.Order == null)
-          {
-              return NotFound();
-          }
-            var orders = await _context.Order.Where(o => o.Phone == phone).ToListAsync();
+        // [HttpGet("find/{phone}")]
+        // public async Task<ActionResult<IEnumerable<Order>>> FindOrder(string phone)
+        // {
+        //   if (_context.Order == null)
+        //   {
+        //       return NotFound();
+        //   }
+        //     var orders = await _context.Order.Where(o => o.Phone == phone).ToListAsync();
 
-            if (orders == null)
-            {
-                return NotFound();
-            }
+        //     if (orders == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return orders;
-        }
+        //     return orders;
+        // }
 
         // GET: api/CheckOut
         // Gather all the cart items and return them
@@ -163,12 +167,8 @@ namespace assignment1.Controllers
         [HttpGet("checkout")]
         public async Task<ActionResult<IEnumerable<CartItem>>> CheckOut()
         {
-          var cart = HttpContext.Session.GetString("cart");
-            if (cart == null)
-            {
-                return NotFound();
-            }
-            List<CartItem> dataCart = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItem>>(cart);
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/Home/ListCart");
+            List<CartItem> dataCart = await response.Content.ReadAsAsync<List<CartItem>>();
             return dataCart;
         }
 

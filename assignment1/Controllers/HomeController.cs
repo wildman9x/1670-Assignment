@@ -66,6 +66,7 @@ namespace assignment1.Controllers
 
         }
 
+        // GET: api/Home
         [HttpGet("ListCart")]
         // List all items in the cart
         public async Task<ActionResult<List<CartItem>>> listCart()
