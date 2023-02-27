@@ -52,10 +52,10 @@ export const Checkout = () => {
     // }));
 
     fetch("/api/Order/checkout", {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
+          },
       body: JSON.stringify(form),
     })
       .then((res) => res.json())
