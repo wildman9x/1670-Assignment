@@ -44,6 +44,10 @@ export const cartSlice = createSlice({
         }
       }
     },
+    setCart: (state, action) => {
+      const cart = action.payload;
+      cartsAdapter.setAll(state, cart);
+    },
   },
   extraReducers: (builder) => {},
 });
@@ -52,10 +56,14 @@ export const { addProduct, minusProduct } = cartSlice.actions;
 export const addToCart = createAsyncThunk(
   "cart/addProduct",
   async (product, { dispatch }) => {
-    await fetch(`/api/Home/AddToCart${product.id}`, {
-      method: "GET",
-    });
-    dispatch(addProduct(product));
+    try {
+      console.log("await res.json()");
+      const res = await fetch(`/api/Home/AddToCart/${product.id}`);
+      console.log(res);
+      dispatch(addProduct(product));
+    } catch (error) {
+      console.warn(error);
+    }
   }
 );
 

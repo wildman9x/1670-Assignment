@@ -63,13 +63,13 @@ export const NavMenu = () => {
                 </NavItem>
               </>
             )}
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" to="/cart">
+                Cart ({carts.length})
+              </NavLink>
+            </NavItem>
             {user?.role === "User" && (
               <>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/cart">
-                    Cart ({carts.length})
-                  </NavLink>
-                </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/my-orders">
                     My Orders

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { cartSelector } from "../../redux/slices/cart";
 
@@ -55,7 +55,7 @@ export const Checkout = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-          },
+      },
       body: JSON.stringify(form),
     })
       .then((res) => res.json())
@@ -69,6 +69,16 @@ export const Checkout = () => {
         setLoading(false);
       });
   };
+
+  useEffect(() => {
+    fetch("/api/Home/ListCart")
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div>
