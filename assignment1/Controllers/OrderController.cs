@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using assignment1.Areas.Identity.Data;
 using assignment1.Models;
 using Microsoft.AspNetCore.Authorization;
+using assignment1.Helpers;
 
 namespace assignment1.Controllers
 {
@@ -172,7 +173,7 @@ namespace assignment1.Controllers
         [HttpGet("checkout")]
         public async Task<ActionResult<IEnumerable<CartItem>>> CheckOut()
         {
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/Home/ListCart");
+            HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/Home/ListCart");
             List<CartItem> dataCart = await response.Content.ReadAsAsync<List<CartItem>>();
             return dataCart;
         }

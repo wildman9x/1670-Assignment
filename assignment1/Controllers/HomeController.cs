@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using assignment1.Helpers;
 
 namespace assignment1.Controllers
 {
@@ -240,7 +241,7 @@ namespace assignment1.Controllers
         // Get Detail Book
         public async Task<Book> getDetailBook(int id)
         {
-            HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/Book/" + id);
+            HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/Book/" + id);
             var book = await response.Content.ReadAsAsync<Book>();
             return book;
         }

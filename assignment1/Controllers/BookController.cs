@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using assignment1.Areas.Identity.Data;
 using assignment1.Models;
+using assignment1.Helpers;
 
 namespace assignment1.Controllers
 {
@@ -35,13 +36,13 @@ namespace assignment1.Controllers
             foreach (var item in books)
             {
                 // Look through the BookAuthor model and find the matching book id
-                HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/BookAuthors/book/" + item.Id);
+                HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/BookAuthors/book/" + item.Id);
                 var authorIdToFind = await response.Content.ReadAsAsync<List<BookAuthor>>();
                 item.AuthorsId = authorIdToFind.Where(a => a.BookId == item.Id).ToList();
 
 
                 // Look through the BookAuthor model and find the matching book id
-                HttpResponseMessage response2 = await client.GetAsync("https://localhost:7202/api/BookGenres/book/" + item.Id);
+                HttpResponseMessage response2 = await client.GetAsync(DomainName.Uri + "/api/BookGenres/book/" + item.Id);
                 var genreIdToFind = await response2.Content.ReadAsAsync<List<BookGenre>>();
                 // Add the genre id to the book where the book id matches
                 item.GenresId = genreIdToFind.Where(g => g.BookId == item.Id).ToList();
@@ -65,13 +66,13 @@ namespace assignment1.Controllers
             }
 
             // Look through the BookAuthor model and find the matching book id
-                HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/BookAuthors/book/" + book.Id);
+                HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/BookAuthors/book/" + book.Id);
                 var authorIdToFind = await response.Content.ReadAsAsync<List<BookAuthor>>();
                 book.AuthorsId = authorIdToFind.Where(a => a.BookId == book.Id).ToList();
 
 
                 // Look through the BookAuthor model and find the matching book id
-                HttpResponseMessage response2 = await client.GetAsync("https://localhost:7202/api/BookGenres/book/" + book.Id);
+                HttpResponseMessage response2 = await client.GetAsync(DomainName.Uri + "/api/BookGenres/book/" + book.Id);
                 var genreIdToFind = await response2.Content.ReadAsAsync<List<BookGenre>>();
                 // Add the genre id to the book where the book id matches
                 book.GenresId = genreIdToFind.Where(g => g.BookId == book.Id).ToList();
@@ -192,7 +193,7 @@ namespace assignment1.Controllers
             foreach (var item in book)
             {
                 // Look through the BookAuthor model and find the matching book id
-                HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/BookAuthors/book/" + item.Id);
+                HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/BookAuthors/book/" + item.Id);
                 var authorIdToFind = await response.Content.ReadAsAsync<List<BookAuthor>>();
                 item.AuthorsId = authorIdToFind.Where(a => a.BookId == item.Id).ToList();
             }
@@ -218,7 +219,7 @@ namespace assignment1.Controllers
             foreach (var item in book)
             {
                 // Look through the BookAuthor model and find the matching book id
-                HttpResponseMessage response = await client.GetAsync("https://localhost:7202/api/BookGenres/book/" + item.Id);
+                HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/BookGenres/book/" + item.Id);
                 var genreIdToFind = await response.Content.ReadAsAsync<List<BookGenre>>();
                 // Add the genre id to the book where the book id matches
                 item.GenresId = genreIdToFind.Where(g => g.BookId == item.Id).ToList();
