@@ -46,21 +46,17 @@ export const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    const cartItems = carts.map((cart) => ({
-      bookId: cart.book.id,
-      quantity: cart.quantity,
-    }));
-    const order = {
-      ...form,
-      cartItems,
-    };
-    console.log(order);
-    fetch("/api/Order", {
-      method: "POST",
+    // const cartItems = carts.map((cart) => ({
+    //   bookId: cart.book.id,
+    //   quantity: cart.quantity,
+    // }));
+
+    fetch("/api/Order/checkout", {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(order),
+      body: JSON.stringify(form),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -105,7 +101,7 @@ export const Checkout = () => {
       </table>
       <form>
         {inputs.map((input) => (
-          <div className="form-group">
+          <div key={input.name} className="form-group">
             <label htmlFor={input.name}>{input.label}</label>
             <input
               type={input.type}

@@ -1,10 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addProduct,
-  cartSelector,
-  minusProduct,
-} from "../../redux/slices/cart";
+import { addToCart, cartSelector, minusToCart } from "../../redux/slices/cart";
 
 export const ViewCart = () => {
   const dispatch = useDispatch();
@@ -14,11 +10,11 @@ export const ViewCart = () => {
   }, 0);
 
   const addQuantity = (cart) => {
-    dispatch(addProduct(cart));
+    dispatch(addToCart(cart));
   };
 
   const minusQuantity = (cart) => {
-    dispatch(minusProduct(cart));
+    dispatch(minusToCart(cart));
   };
 
   return (

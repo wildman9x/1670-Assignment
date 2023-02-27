@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { authorSelector } from "../../redux/slices/author";
 import { booksSelector, getBook } from "../../redux/slices/book";
-import { addProduct } from "../../redux/slices/cart";
+import { addToCart } from "../../redux/slices/cart";
 import { genreSelector } from "../../redux/slices/genre";
 import { publisherSelector } from "../../redux/slices/publisher";
 
@@ -28,7 +28,7 @@ export const BookDetails = () => {
   );
 
   const addBookToCart = async () => {
-    dispatch(addProduct(book));
+    dispatch(addToCart(book));
   };
 
   useEffect(() => {

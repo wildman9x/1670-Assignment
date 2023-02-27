@@ -2,7 +2,6 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
-  isAnyOf,
 } from "@reduxjs/toolkit";
 
 const cartsAdapter = createEntityAdapter({
@@ -50,5 +49,24 @@ export const cartSlice = createSlice({
 });
 
 export const { addProduct, minusProduct } = cartSlice.actions;
+export const addToCart = createAsyncThunk(
+  "cart/addProduct",
+  async (product, { dispatch }) => {
+    await fetch(`/api/Home/AddToCart${product.id}`, {
+      method: "GET",
+    });
+    dispatch(addProduct(product));
+  }
+);
+
+export const minusToCart = createAsyncThunk(
+  "cart/minusProduct",
+  async (product, { dispatch }) => {
+    await fetch(`/api/Home/DecreaseCartItem/${product.id}`, {
+      method: "GET",
+    });
+    dispatch(minusProduct(product));
+  }
+);
 
 export default cartSlice.reducer;
