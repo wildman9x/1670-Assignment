@@ -184,6 +184,7 @@ namespace assignment1.Controllers
             public string email { get; set; }
             public string phone { get; set; }
             public string address { get; set; }
+            public decimal total { get; set; }
         }
 
         // POST: api/CheckOut
@@ -201,6 +202,7 @@ namespace assignment1.Controllers
                 Phone = orderInfo.phone,
                 Address = orderInfo.address,
                 CartItems = new List<CartItem>(),
+                Total = orderInfo.total
             };
             List<CartItem> dataCart = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItem>>(cart);
             order.CartItems = dataCart;
