@@ -75,11 +75,10 @@ export const BookDetails = () => {
               <a href={`/publisher/${publisher?.id}`}>{publisher?.name}</a>
             </p>
             <p>Publish Date: {book.publishDate}</p>
-            {role === "User" && (
-              <button className="btn btn-primary" onClick={addBookToCart}>
-                Add to cart
-              </button>
-            )}
+
+            <button className="btn btn-primary" onClick={addBookToCart}>
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
