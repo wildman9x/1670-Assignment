@@ -27,6 +27,8 @@ jobs:
         run: dotnet build ./assignment1 --configuration Release 
 
       - name: dotnet publish
+        env: 
+          CI: ""
         run: dotnet publish ./assignment1 -c Release -o ${{env.DOTNET_ROOT}}/assignment1
 
       - name: Upload artifact for deployment job
