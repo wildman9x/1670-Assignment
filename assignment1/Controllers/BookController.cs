@@ -47,7 +47,7 @@ namespace assignment1.Controllers
             //     // Add the genre id to the book where the book id matches
             //     item.GenresId = genreIdToFind.Where(g => g.BookId == item.Id).ToList();
             // }
-            await Task.Run(() => Parallel.ForEach(books, async item =>
+            Task.WaitAll(books.Select(async item =>
             {
                 // Look through the BookAuthor model and find the matching book id
                 HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/BookAuthors/book/" + item.Id);
@@ -58,7 +58,7 @@ namespace assignment1.Controllers
                 var genreIdToFind = await response2.Content.ReadAsAsync<List<BookGenre>>();
                 // Add the genre id to the book where the book id matches
                 item.GenresId = genreIdToFind.Where(g => g.BookId == item.Id).ToList();
-            }));
+            }).ToArray());
             return books;
         }
 
