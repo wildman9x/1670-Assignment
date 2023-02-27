@@ -12,6 +12,7 @@ import { UpdateGenre } from "./components/genre/UpdateGenre";
 import { ViewGenre } from "./components/genre/ViewGenre";
 import { Home } from "./components/Home";
 import { Checkout } from "./components/orders/Checkout";
+import { ViewOrders } from "./components/orders/ViewOrders";
 import { CreatePublisher } from "./components/publisher/CreatePublisher";
 import { PublisherDetails } from "./components/publisher/PublisherDetails";
 import { UpdatePublisher } from "./components/publisher/UpdatePublisher";
@@ -104,6 +105,10 @@ const AppRoutes = [
   {
     path: "/cart",
     element: <ViewCart />,
+  },
+  {
+    path: "/my-orders",
+    element: <ViewOrders />,
   },
   {
     path: "order/checkout",
