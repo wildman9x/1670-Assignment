@@ -33,20 +33,32 @@ namespace assignment1.Controllers
               return NotFound();
           }
             var books = await _context.Book.ToListAsync();
-            foreach (var item in books)
+            // foreach (var item in books)
+            // {
+            //     // Look through the BookAuthor model and find the matching book id
+            //     HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/BookAuthors/book/" + item.Id);
+            //     var authorIdToFind = await response.Content.ReadAsAsync<List<BookAuthor>>();
+            //     item.AuthorsId = authorIdToFind.Where(a => a.BookId == item.Id).ToList();
+
+
+            //     // Look through the BookAuthor model and find the matching book id
+            //     HttpResponseMessage response2 = await client.GetAsync(DomainName.Uri + "/api/BookGenres/book/" + item.Id);
+            //     var genreIdToFind = await response2.Content.ReadAsAsync<List<BookGenre>>();
+            //     // Add the genre id to the book where the book id matches
+            //     item.GenresId = genreIdToFind.Where(g => g.BookId == item.Id).ToList();
+            // }
+            await Task.Run(() => Parallel.ForEach(books, async item =>
             {
                 // Look through the BookAuthor model and find the matching book id
                 HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/BookAuthors/book/" + item.Id);
                 var authorIdToFind = await response.Content.ReadAsAsync<List<BookAuthor>>();
                 item.AuthorsId = authorIdToFind.Where(a => a.BookId == item.Id).ToList();
 
-
-                // Look through the BookAuthor model and find the matching book id
                 HttpResponseMessage response2 = await client.GetAsync(DomainName.Uri + "/api/BookGenres/book/" + item.Id);
                 var genreIdToFind = await response2.Content.ReadAsAsync<List<BookGenre>>();
                 // Add the genre id to the book where the book id matches
                 item.GenresId = genreIdToFind.Where(g => g.BookId == item.Id).ToList();
-            }
+            }));
             return books;
         }
 
