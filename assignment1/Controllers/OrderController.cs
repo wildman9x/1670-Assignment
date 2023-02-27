@@ -32,7 +32,12 @@ namespace assignment1.Controllers
           {
               return NotFound();
           }
-            return await _context.Order.ToListAsync();
+            var orders = await _context.Order.ToListAsync();
+            foreach (var item in orders)
+            {
+                item.CartItems = await _context.CartItem.Where(c => c.OrderId == item.Id).ToListAsync();
+            }
+            return orders;
         }
 
         [Authorize]
@@ -172,9 +177,17 @@ namespace assignment1.Controllers
             return dataCart;
         }
 
+        public class OrderInfo
+        {
+            public string name { get; set; }
+            public string email { get; set; }
+            public string phone { get; set; }
+            public string address { get; set; }
+        }
+
         // POST: api/CheckOut
         [HttpPost("checkout")]
-        public async Task<ActionResult<Order>> CheckOut(string name, string email, string phone, string address)
+        public async Task<ActionResult<Order>> CheckOut(OrderInfo orderInfo)
         {
           var cart = HttpContext.Session.GetString("cart");
             if (cart == null)
@@ -182,10 +195,10 @@ namespace assignment1.Controllers
                 return NotFound();
             }
             Order order = new Order{
-                Name = name,
-                Email = email,
-                Phone = phone,
-                Address = address,
+                Name = orderInfo.name,
+                Email = orderInfo.email,
+                Phone = orderInfo.phone,
+                Address = orderInfo.address,
                 CartItems = new List<CartItem>(),
             };
             List<CartItem> dataCart = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItem>>(cart);

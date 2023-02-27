@@ -1,8 +1,24 @@
-import { Counter } from "./components/Counter";
-import { DisplayImages } from "./components/DisplayImages";
-import { FetchData } from "./components/FetchData";
+import { AuthorDetails } from "./components/author/AuthorDetails";
+import { CreateAuthor } from "./components/author/CreateAuthor";
+import { UpdateAuthor } from "./components/author/UpdateAuthor";
+import { ViewAuthors } from "./components/author/ViewAuthors";
+import { BookDetails } from "./components/book/BookDetails";
+import { CreateBook } from "./components/book/CreateBook";
+import { UpdateBook } from "./components/book/UpdateBook";
+import { ViewCart } from "./components/cart/ViewCart";
+import { CreateGenre } from "./components/genre/CreateGenre";
+import { GenreDetails } from "./components/genre/GenreDetails";
+import { UpdateGenre } from "./components/genre/UpdateGenre";
+import { ViewGenre } from "./components/genre/ViewGenre";
 import { Home } from "./components/Home";
-import { UploadImage } from "./components/UploadImage";
+import { Checkout } from "./components/orders/Checkout";
+import { CreatePublisher } from "./components/publisher/CreatePublisher";
+import { PublisherDetails } from "./components/publisher/PublisherDetails";
+import { UpdatePublisher } from "./components/publisher/UpdatePublisher";
+import { ViewPublisher } from "./components/publisher/ViewPublisher";
+import Login from "./components/user/Login";
+import { Logout } from "./components/user/Logout";
+import Register from "./components/user/Register";
 
 const AppRoutes = [
   {
@@ -10,20 +26,88 @@ const AppRoutes = [
     element: <Home />,
   },
   {
-    path: "/counter",
-    element: <Counter />,
+    path: "/login",
+    element: <Login />,
   },
   {
-    path: "/fetch-data",
-    element: <FetchData />,
+    path: "/logout",
+    element: <Logout />,
   },
   {
-    path: "/upload-image",
-    element: <UploadImage />,
+    path: "/register",
+    element: <Register />,
   },
   {
-    path: "/display-image",
-    element: <DisplayImages />,
+    path: "/register/:admin",
+    element: <Register />,
+  },
+  {
+    path: "/author",
+    element: <ViewAuthors />,
+  },
+  {
+    path: "/author/:id",
+    element: <AuthorDetails />,
+  },
+  {
+    path: "/author/create",
+    element: <CreateAuthor />,
+  },
+  {
+    path: "/author/update/:id",
+    element: <UpdateAuthor />,
+  },
+  {
+    path: "/genre",
+    element: <ViewGenre />,
+  },
+  {
+    path: "/genre/:id",
+    element: <GenreDetails />,
+  },
+  {
+    path: "/genre/create",
+    element: <CreateGenre />,
+  },
+  {
+    path: "/genre/update/:id",
+    element: <UpdateGenre />,
+  },
+  {
+    path: "/publisher",
+    element: <ViewPublisher />,
+  },
+  {
+    path: "/publisher/:id",
+    element: <PublisherDetails />,
+  },
+  {
+    path: "/publisher/create",
+    element: <CreatePublisher />,
+  },
+  {
+    path: "/publisher/update/:id",
+    element: <UpdatePublisher />,
+  },
+  {
+    path: "/book/:id",
+    element: <BookDetails />,
+  },
+  {
+    path: "/book/create",
+    element: <CreateBook />,
+  },
+  {
+    path: "/book/update/:id",
+    element: <UpdateBook />,
+  },
+  {
+    path: "/cart",
+    element: <ViewCart />,
+  },
+  {
+    path: "order/checkout",
+    element: <Checkout />,
   },
 ];
 
