@@ -9,12 +9,14 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import { cartSelector } from "../redux/slices/cart";
 import "./NavMenu.css";
 
 const navPaths = [{ path: "/", name: "Home" }];
 
 export const NavMenu = () => {
   const user = useSelector((state) => state.user);
+  const carts = useSelector(cartSelector.selectAll);
 
   const [state, setState] = useState({
     collapsed: true,
@@ -25,7 +27,7 @@ export const NavMenu = () => {
       collapsed: !prevState.collapsed,
     }));
   }
-
+  console.log(carts.length);
   return (
     <header>
       <Navbar
@@ -65,7 +67,7 @@ export const NavMenu = () => {
               <>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/cart">
-                    Cart
+                    Cart ({carts.length})
                   </NavLink>
                 </NavItem>
                 <NavItem>

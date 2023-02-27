@@ -17,6 +17,8 @@ const context = [
   "/api/Publisher",
   "/api/StorageApi",
   "/api/User",
+  "/api/User/CreateUser",
+  "/api/Order",
 ];
 
 module.exports = function (app) {

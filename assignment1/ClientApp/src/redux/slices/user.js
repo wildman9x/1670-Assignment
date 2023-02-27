@@ -21,12 +21,17 @@ export const login = createAsyncThunk("user/login", async (user) => {
 export const register = createAsyncThunk(
   "user/register",
   async ({ user, admin }) => {
+    const body = {
+      ...user,
+      role: admin ? "Admin" : "User",
+    };
+    console.log(body);
     const response = await fetch("/api/User/CreateUser", {
       method: "POST",
       headers: {
         Accept: "*/*",
       },
-      body: JSON.stringify({ ...user, role: admin ? "Admin" : "User" }),
+      body: JSON.stringify(body),
     });
     console.log(response);
 

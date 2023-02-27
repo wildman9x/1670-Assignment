@@ -5,11 +5,13 @@ import { ViewAuthors } from "./components/author/ViewAuthors";
 import { BookDetails } from "./components/book/BookDetails";
 import { CreateBook } from "./components/book/CreateBook";
 import { UpdateBook } from "./components/book/UpdateBook";
+import { ViewCart } from "./components/cart/ViewCart";
 import { CreateGenre } from "./components/genre/CreateGenre";
 import { GenreDetails } from "./components/genre/GenreDetails";
 import { UpdateGenre } from "./components/genre/UpdateGenre";
 import { ViewGenre } from "./components/genre/ViewGenre";
 import { Home } from "./components/Home";
+import { Checkout } from "./components/orders/Checkout";
 import { CreatePublisher } from "./components/publisher/CreatePublisher";
 import { PublisherDetails } from "./components/publisher/PublisherDetails";
 import { UpdatePublisher } from "./components/publisher/UpdatePublisher";
@@ -98,6 +100,14 @@ const AppRoutes = [
   {
     path: "/book/update/:id",
     element: <UpdateBook />,
+  },
+  {
+    path: "/cart",
+    element: <ViewCart />,
+  },
+  {
+    path: "order/checkout",
+    element: <Checkout />,
   },
 ];
 

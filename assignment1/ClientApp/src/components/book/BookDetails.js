@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { authorSelector } from "../../redux/slices/author";
 import { booksSelector, getBook } from "../../redux/slices/book";
+import { addProduct } from "../../redux/slices/cart";
 import { genreSelector } from "../../redux/slices/genre";
 import { publisherSelector } from "../../redux/slices/publisher";
 
@@ -25,6 +26,10 @@ export const BookDetails = () => {
   const publisher = useSelector((state) =>
     publisherSelector.selectById(state, book.publisherId)
   );
+
+  const addBookToCart = async () => {
+    dispatch(addProduct(book));
+  };
 
   useEffect(() => {
     dispatch(getBook(id));
@@ -71,7 +76,9 @@ export const BookDetails = () => {
             </p>
             <p>Publish Date: {book.publishDate}</p>
             {role === "User" && (
-              <button className="btn btn-primary">Add to cart</button>
+              <button className="btn btn-primary" onClick={addBookToCart}>
+                Add to cart
+              </button>
             )}
           </div>
         </div>
