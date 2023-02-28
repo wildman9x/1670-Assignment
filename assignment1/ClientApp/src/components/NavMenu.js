@@ -30,67 +30,48 @@ export const NavMenu = () => {
   console.log(carts.length);
   return (
     <header>
-      <Navbar
-        className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
-        container
-        light
-      >
-        <NavbarBrand tag={Link} to="/">
-          assignment1
-        </NavbarBrand>
-        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-        <Collapse
-          className="d-sm-inline-flex flex-sm-row justify-content-sm-between"
-          isOpen={!state.collapsed}
-          navbar
-        >
-          <ul className="navbar-nav flex-grow">
-            {navPaths.map((path) => (
-              <NavItem key={path.path}>
-                <NavLink tag={Link} className="text-dark" to={path.path}>
-                  {path.name}
-                </NavLink>
-              </NavItem>
-            ))}
-          </ul>
-          <ul className="navbar-nav flex-grow">
-            {user?.role === "Admin" && (
-              <>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/orders">
-                    Orders
-                  </NavLink>
-                </NavItem>
-              </>
-            )}
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/cart">
-                Cart ({carts.length})
-              </NavLink>
-            </NavItem>
-            {user?.role === "User" && (
-              <>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/my-orders">
-                    My Orders
-                  </NavLink>
-                </NavItem>
-              </>
-            )}
-            <NavItem>
-              {user?.email ? (
-                <NavLink tag={Link} className="text-dark" to="/logout">
-                  Logout
-                </NavLink>
-              ) : (
-                <NavLink tag={Link} className="text-dark" to="/login">
-                  Login
-                </NavLink>
-              )}
-            </NavItem>
-          </ul>
-        </Collapse>
-      </Navbar>
+      <div className="sidebar">
+		<div className="side-nav-section">
+			<div className="side-nav">
+				<a data-bs-toggle="collapse" aria-expended="false" aria-controls="collapse-1" onclick="location.href='#collapse-1'" role="button">
+					<button className="sidebar-nav-title btn-custom button">Product</button>
+				</a>
+				<div id="collapse-1" className="collapse">
+					<ul
+						className="list-unstyled">
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div
+			className="side-nav-section">
+			
+
+			<form action="" method="GET">
+				<input
+				type="text" name="search" placeholder="Search">
+          </input>
+			
+			</form>
+
+			<nav className="pages-nav side-nav-section">
+				<ul className="list-unstyled pages-nav-items">
+					<option selected disabled>Customer</option>
+					<li>
+						<a href="">Login</a>
+					</li>
+					<li>
+						<a href="">Home</a>
+					</li>
+					<li>
+						<a href="">Cart</a>
+					</li>
+					
+				</ul>
+			</nav>
+		</div>
+	</div>
     </header>
   );
 };

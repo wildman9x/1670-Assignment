@@ -16,35 +16,75 @@ export const Home = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-between">
-        <h1>Books</h1>
-        {role === "Admin" && <a href="/book/create">Create book</a>}
-      </div>
+      
+      <section className="welcome gradient home-welcome">
+		<div className="welcome-messaging">
+			<h2>Hand-made</h2>
+			<a data-bss-hover-animate="pulse" className="button" style="width: 255px;" href="#">Shop with us</a>
+		</div>
+		<div className="diagonal-line pattern">
+			<svg width='4' height='4' viewbox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'>
+				<g fill='##212121' fill-opacity='0.7' fill-rule='evenodd'><path d='M5 0h1L0 6V5zM6 5v1H5z'/></g>
+			</svg>
+		</div>
 
-      <table className="table table-striped" aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Image</th>
-            <th>
-              <a href="/author">Authors</a>
-            </th>
-            <th>
-              <a href="/genre">Genres</a>
-            </th>
-            <th>
-              <a href="/publisher">Publisher</a>
-            </th>
-            <th>Publish Date</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          {books?.map((book) => (
-            <RenderBook key={book.id} book={book} />
-          ))}
-        </tbody>
-      </table>
+		<div className="welcome-image"><img src=""> </img></div>
+	</section>
+  <div className="content">
+		<div className="d-flex all-product-banner" style="background: linear-gradient(140deg, rgb(222, 199, 178) 20%, rgb(255, 169, 122) 70%);">
+			<div className="banner-detail" style="padding: 7.5em;">
+				<div className="tag">
+					<span>All products</span>
+				</div>
+				<div className="banner-text" style="padding-top: 0;margin-top: 0;">
+					<h2>All of our products</h2>
+				</div>
+			</div>
+			<div className="banner-image-container" style="height:auto">
+				<div className="banner-images">
+					<div className="banner-image"><img src="" style="background: linear-gradient(140deg, rgb(222, 199, 178) 20%, rgb(255, 169, 122) 70%);     height: 100%;     width: 100%;"></img></div>
+					<div className="banner-image"><img src="" style="background: linear-gradient(140deg, rgb(222, 199, 178) 20%, rgb(255, 169, 122) 70%);     height: 100%;     width: 100%;"></img></div>
+					<div className="banner-image"><img src="" style="background: linear-gradient(140deg, rgb(222, 199, 178) 20%, rgb(255, 169, 122) 70%);     height: 100%;     width: 100%;"></img></div>
+				</div>
+			</div>
+		</div>
+		<div
+			className="product-list" data-per-row="3">
+
+			
+			<div className="row">
+				
+
+					<div className="col-xxl-4">
+						<a className="product-item rollover" href="">
+							<div className="product-item-container">
+								<figure className="figure product-item-image-container"><img className="img-fluid figure-img product-image" src=""></img>
+									<div className="product-item-status">
+										<span>Pre-order</span>
+									</div>
+								</figure>
+								<div className="product-item-info">
+									<div className="product-item-info-header">
+										<div className="product-item-info-name">
+											<span>Name</span>
+										</div>
+										<div className="product-item-price">
+											<span className="currency-sign">$</span>
+											<span>23</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					
+
+				
+			</div>
+
+
+		</div>
+	</div>
     </div>
   );
 };
