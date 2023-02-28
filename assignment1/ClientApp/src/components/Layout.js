@@ -23,7 +23,7 @@ export const Layout = ({ children }) => {
         className="desktop-cart"
         style={{
           width: "100%",
-          maxWidth: "1900px",
+          maxWidth: "1500px",
           position: "fixed",
           top: "0px",
           zIndex: "200",
