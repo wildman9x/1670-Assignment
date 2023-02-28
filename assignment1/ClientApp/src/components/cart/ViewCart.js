@@ -17,16 +17,16 @@ export const ViewCart = () => {
     dispatch(minusToCart(cart));
   };
 
-  useEffect(() => {
-    fetch("/api/Home/ListCart")
-      .then((data) => {
-        console.log(data.body);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {});
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/Home/ListCart")
+  //     .then((data) => {
+  //       console.log(data.body);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  //     .finally(() => {});
+  // }, []);
 
   return (
     <div>

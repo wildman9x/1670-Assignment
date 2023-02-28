@@ -12,6 +12,7 @@ import { UpdateGenre } from "./components/genre/UpdateGenre";
 import { ViewGenre } from "./components/genre/ViewGenre";
 import { Home } from "./components/Home";
 import { Checkout } from "./components/orders/Checkout";
+import { FindOrders } from "./components/orders/FindOrders";
 import { ViewOrders } from "./components/orders/ViewOrders";
 import { CreatePublisher } from "./components/publisher/CreatePublisher";
 import { PublisherDetails } from "./components/publisher/PublisherDetails";
@@ -108,6 +109,10 @@ const AppRoutes = [
   },
   {
     path: "/my-orders",
+    element: <FindOrders />,
+  },
+  {
+    path: "/orders",
     element: <ViewOrders />,
   },
   {
