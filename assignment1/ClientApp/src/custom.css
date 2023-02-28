@@ -270,7 +270,7 @@ img {
   -webkit-flex: 0 0 277px;
   -ms-flex: 0 0 277px;
   flex: 0 0 277px;
-  padding: 50px 0px 50px 50px;
+  padding: 50px 0px 50px 0px;
 }
 
 @media screen and (min-width: 1025px) {
