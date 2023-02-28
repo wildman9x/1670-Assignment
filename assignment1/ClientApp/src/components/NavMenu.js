@@ -29,7 +29,7 @@ export const NavMenu = () => {
     }
     console.log(carts.length);
     return (
-        <div>
+        <div style={{paddingLeft: "3em"}}>
             <div className="sidebar">
                 <div className="side-nav-section">
                     <div className="side-nav">
