@@ -56,7 +56,9 @@ export const fetchBook = createAsyncThunk(
   async (_, { dispatch }) => {
     const response = await fetch("/api/Book");
     const data = await response.json();
-
+    console.log("====================================");
+    console.log(data);
+    console.log("====================================");
     const authors = data
       .reduce((acc, book) => {
         return [...acc, ...book.authorsId];
