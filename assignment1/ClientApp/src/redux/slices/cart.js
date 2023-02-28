@@ -48,11 +48,15 @@ export const cartSlice = createSlice({
       const cart = action.payload;
       cartsAdapter.setAll(state, cart);
     },
+    clearCart: (state) => {
+      cartsAdapter.removeAll(state);
+    },
   },
   extraReducers: (builder) => {},
 });
 
-export const { addProduct, minusProduct } = cartSlice.actions;
+export const { addProduct, minusProduct, setCart, clearCart } =
+  cartSlice.actions;
 export const addToCart = createAsyncThunk(
   "cart/addProduct",
   async (product, { dispatch }) => {

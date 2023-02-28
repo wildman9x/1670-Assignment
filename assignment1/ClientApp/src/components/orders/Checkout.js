@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { cartSelector } from "../../redux/slices/cart";
+import { useDispatch, useSelector } from "react-redux";
+import { cartSelector, clearCart } from "../../redux/slices/cart";
 
 const inputs = [
   {
@@ -30,6 +30,7 @@ const inputs = [
 ];
 
 export const Checkout = () => {
+  const dispatch = useDispatch();
   const carts = useSelector(cartSelector.selectAll);
   const user = useSelector((state) => state.user);
   const total = carts?.reduce((acc, cart) => {
@@ -46,17 +47,19 @@ export const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    // const cartItems = carts.map((cart) => ({
-    //   bookId: cart.book.id,
-    //   quantity: cart.quantity,
-    // }));
+    const order = {
+      ...form,
+      total,
+    };
+    dispatch(clearCart());
 
     fetch("/api/Order/checkout", {
       method: "POST",
       headers: {
+        Accept: "text/plain",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(form),
+      body: JSON.stringify(order),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -70,15 +73,15 @@ export const Checkout = () => {
       });
   };
 
-  useEffect(() => {
-    fetch("/api/Home/ListCart")
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/Home/ListCart")
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <div>
