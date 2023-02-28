@@ -23,5 +23,7 @@ namespace assignment1.Models
         [RegularExpression(@"^(\d{3}-\d{3}-\d{4})$", ErrorMessage = "Phone number must be in the format 123-456-7890")]
         [Required]
         public string? Phone { get; set; }
+        // Image
+        public string? Image { get; set; }
     }
 }

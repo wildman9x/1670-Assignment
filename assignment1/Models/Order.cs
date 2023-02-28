@@ -26,5 +26,6 @@ namespace assignment1.Models
         public string? Address { get; set; }
         // Cart
         public List<CartItem>? CartItems { get; set; }
+        public decimal Total { get; set; }
     }
 }

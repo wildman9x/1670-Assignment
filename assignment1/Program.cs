@@ -17,8 +17,13 @@ builder.Services.AddDbContext<assignment1IdentityDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<SystemUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<assignment1IdentityDbContext>();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
@@ -47,13 +52,22 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseSession();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
-app.UseAuthentication();;
+
+
+
 
 app.Run();
 Log.Information("API is now ready to serve files to and from Azure Cloud Storage...");

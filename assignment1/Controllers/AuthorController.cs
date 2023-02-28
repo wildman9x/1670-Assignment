@@ -15,6 +15,7 @@ namespace assignment1.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly assignment1IdentityDbContext _context;
+        
 
         public AuthorController(assignment1IdentityDbContext context)
         {
@@ -48,6 +49,24 @@ namespace assignment1.Controllers
             }
 
             return author;
+        }
+
+        // Get list of authors by book id
+        [HttpGet("book/{id}")]
+        public async Task<ActionResult<IEnumerable<Author>>> GetAuthorByBookId(int id)
+        {
+          if (_context.Author == null)
+          {
+              return NotFound();
+          }
+            var bookAuthors = await _context.BookAuthor.Where(ba => ba.BookId == id).ToListAsync();
+            var authors = new List<Author>();
+            foreach (var bookAuthor in bookAuthors)
+            {
+                var author = await _context.Author.FindAsync(bookAuthor.AuthorId);
+                authors.Add(author);
+            }
+            return authors;
         }
 
         // PUT: api/Author/5
@@ -114,6 +133,35 @@ namespace assignment1.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // Search author by name
+        [HttpGet("SearchAuthor/{name}")]
+        public async Task<ActionResult<IEnumerable<Author>>> SearchAuthor(string name)
+        {
+            if (_context.Author == null)
+            {
+                return NotFound();
+            }
+            // If the search string is two words, split it into two strings
+            string[] nameArray = name.Split(' ');
+            string firstName = nameArray[0];
+            string lastName = nameArray[1];
+            // Find for author whose name contains the search string
+            var author = await _context.Author
+            .Where(
+                a => a.FirstName.Contains(firstName) || 
+                a.LastName.Contains(lastName) || 
+                a.FirstName.Contains(name) || 
+                a.LastName.Contains(name))
+            .ToListAsync();
+
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            return author;
         }
 
         private bool AuthorExists(int id)
