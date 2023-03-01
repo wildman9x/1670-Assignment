@@ -21,7 +21,7 @@ export const ViewGenre = () => {
         }}
       >
         <h1>View Genres</h1>
-        <a href="/author/create" className="button">Create Genre</a>
+        <a href="/genre/create" className="button">Create Genre</a>
       </div>
       {genreState.loading ? (
         <p>Loading...</p>
