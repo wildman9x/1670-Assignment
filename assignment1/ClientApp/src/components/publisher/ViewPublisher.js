@@ -24,7 +24,7 @@ export const ViewPublisher = () => {
         }}
       >
         <h1>View Publisher</h1>
-        <a href="/author/create">Create publisher</a>
+        <a href="/author/create" className="button">Create publisher</a>
       </div>
       {publisherState.loading ? (
         <p>Loading...</p>
