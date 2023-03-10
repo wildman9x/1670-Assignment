@@ -43,16 +43,12 @@ export const PublisherDetails = () => {
             <a href={"/publisher/update/" + publisher.id} className="button">Update</a>
           )}
         </div>
-        <p>
-          Address:
-          {publisher.address}
-        </p>
-        <p>
-          Country:
+        <p>Address:
+          {publisher.address}</p>
+        <p>Country:
           {publisher.country}
         </p>
-        <p>
-          Phone:
+        <p>Phone:
           {publisher.phone}
         </p>
         <img
