@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="assignment1.Models.Author">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAEAAAAAAAgAAAAAAAAQAAAAAABAAAQAAAAAAAEg=</HashCode>
+      <FileName>Models\Author.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.Book">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAAEAACAAAAAAACQAAABAAAAAAAAQAAAA=</HashCode>
+      <FileName>Models\Book.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.BookAuthor">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Models\BookAuthor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.BookGenre">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BookGenre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.BookQuantity">
+    <Position X="3.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\BookQuantity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.CartItem">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAgAAACAA=</HashCode>
+      <FileName>Models\CartItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.Genre">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Genre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.ImageDto">
+    <Position X="9" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAQAAAAAAAAACAAQAAAAAAA=</HashCode>
+      <FileName>Models\ImageDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.ImageResponse">
+    <Position X="3.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ImageResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.Order">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAgCAAAAAAAAAAAAQAAAAAQAACAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Models.Publisher">
+    <Position X="7.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAIAABACAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Publisher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Areas.Identity.Data.assignment1IdentityDbContext">
+    <Position X="9.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAgAAAAABAiAIAAAAAEAAAAAAAAAAAAIACACA=</HashCode>
+      <FileName>Areas\Identity\Data\assignment1IdentityDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Areas.Identity.Data.SystemUser">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Areas\Identity\Data\SystemUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.AuthorController">
+    <Position X="0.5" Y="7.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAABAIABAAAAAAAAAAgAAAABAgAAAAAAAAEAAA=</HashCode>
+      <FileName>Controllers\AuthorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.BookAuthorsController" Collapsed="true">
+    <Position X="6" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAADAAAgAEAAABAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Controllers\BookAuthorsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.BookController" Collapsed="true">
+    <Position X="7.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBBAQAAAACAABgAAAAAAAAAAAAAAAAAAAAKABIAAAAA=</HashCode>
+      <FileName>Controllers\BookController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.BookGenresController" Collapsed="true">
+    <Position X="9.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQhAAAgAAAAAAAAAAAAIAAAAAIAAAAAAg=</HashCode>
+      <FileName>Controllers\BookGenresController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.BookQuantityController" Collapsed="true">
+    <Position X="4.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAiAAABAAAACAAAAAAIAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Controllers\BookQuantityController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.CartItemController" Collapsed="true">
+    <Position X="6" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAABAAAAAAAAAAAAAAAAIAAAAAgIAAAAQA=</HashCode>
+      <FileName>Controllers\CartItemController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.GenreController" Collapsed="true">
+    <Position X="7.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACEAAAEAAAABCAAAAAAAAAAAAAAAgEAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\GenreController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.HomeController" Collapsed="true">
+    <Position X="9.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgIAAAIAAIBAAAAABAACAAAAAAAAgAAAAABEAgAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.OrderController">
+    <Position X="3.25" Y="10.5" Width="2.25" />
+    <NestedTypes>
+      <Class Name="assignment1.Controllers.OrderController.OrderInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\OrderController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAACQQAAAAABAAAAAAAAAAAACAAAAIAAEAABAAAAAA=</HashCode>
+      <FileName>Controllers\OrderController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.PublisherController">
+    <Position X="6" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAABAAAACAEAAAAgAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\PublisherController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.StorageApiController">
+    <Position X="7.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAgAAAEAAAAAAAEAAAAAgAA=</HashCode>
+      <FileName>Controllers\StorageApiController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="assignment1.Controllers.UserController">
+    <Position X="10.25" Y="10.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="assignment1.Controllers.UserController.LogInInputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\UserController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="assignment1.Controllers.UserController.RegisterInputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controllers\UserController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAADAAGAQAAAAAEAABAgAIgIwCAARQgEAAQAAUQAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Arial" Size="9" />
+</ClassDiagram>

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using assignment1.Areas.Identity.Data;
 using assignment1.Models;
 using assignment1.Helpers;
+using Serilog;
 
 namespace assignment1.Controllers
 {
@@ -49,11 +50,13 @@ namespace assignment1.Controllers
             // }
             Task.WaitAll(books.Select(async item =>
             {
+                Log.Information("Getting Authors for book: " + item.Title + "");
                 // Look through the BookAuthor model and find the matching book id
                 HttpResponseMessage response = await client.GetAsync(DomainName.Uri + "/api/BookAuthors/book/" + item.Id);
                 var authorIdToFind = await response.Content.ReadAsAsync<List<BookAuthor>>();
                 item.AuthorsId = authorIdToFind.Where(a => a.BookId == item.Id).ToList();
 
+                Log.Information("Getting Genres for book: " + item.Title + "");
                 HttpResponseMessage response2 = await client.GetAsync(DomainName.Uri + "/api/BookGenres/book/" + item.Id);
                 var genreIdToFind = await response2.Content.ReadAsAsync<List<BookGenre>>();
                 // Add the genre id to the book where the book id matches
