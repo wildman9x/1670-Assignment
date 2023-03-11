@@ -7,6 +7,6 @@ namespace assignment1.Models
 {
     public class ListIdInt
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
     }
 }
