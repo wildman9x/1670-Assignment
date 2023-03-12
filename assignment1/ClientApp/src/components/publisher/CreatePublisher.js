@@ -85,13 +85,7 @@ export const CreatePublisher = () => {
           <label htmlFor="image">Image</label>
           <ImageUpload onImageUpload={setImageUri} />
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
+       
       </form>
     </div>
   );
