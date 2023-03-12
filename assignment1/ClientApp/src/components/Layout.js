@@ -47,7 +47,10 @@ export const Layout = ({ children }) => {
         </div>
       </div>
       <div className="wrap">
-        
+        <div className="main">
+          <NavMenu />
+          <Container>{children}</Container>
+        </div>
       </div>
     </div>
   );
