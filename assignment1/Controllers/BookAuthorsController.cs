@@ -69,7 +69,7 @@ namespace assignment1.Controllers
         }
 
         // PUT: api/BookAuthors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBookAuthor(int id, BookAuthor bookAuthor)
         {
@@ -100,7 +100,7 @@ namespace assignment1.Controllers
         }
 
         // POST: api/BookAuthors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPost]
         public async Task<ActionResult<BookAuthor>> PostBookAuthor(BookAuthor bookAuthor)
         {

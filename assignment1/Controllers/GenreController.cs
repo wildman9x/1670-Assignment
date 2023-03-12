@@ -51,7 +51,7 @@ namespace assignment1.Controllers
         }
 
         // PUT: api/Genre/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGenre(int id, Genre genre)
         {
@@ -101,7 +101,7 @@ namespace assignment1.Controllers
         
 
         // POST: api/Genre
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPost]
         public async Task<ActionResult<Genre>> PostGenre(Genre genre)
         {
