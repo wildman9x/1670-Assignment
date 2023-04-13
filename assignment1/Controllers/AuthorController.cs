@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using assignment1.Areas.Identity.Data;
 using assignment1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace assignment1.Controllers
 {
@@ -70,7 +71,7 @@ namespace assignment1.Controllers
         }
 
         // PUT: api/Author/5
-        
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAuthor(int id, Author author)
         {
@@ -101,7 +102,7 @@ namespace assignment1.Controllers
         }
 
         // POST: api/Author
-        
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Author>> PostAuthor(Author author)
         {
@@ -116,6 +117,7 @@ namespace assignment1.Controllers
         }
 
         // DELETE: api/Author/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
