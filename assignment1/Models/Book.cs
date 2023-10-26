@@ -31,6 +31,6 @@ namespace assignment1.Models
         [Required]
         public decimal Price { get; set; }
         // Image
-        public string? Image { get; set; }
+        public string? Image { get; set;}
     }
 }

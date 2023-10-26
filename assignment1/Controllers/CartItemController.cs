@@ -51,7 +51,7 @@ namespace assignment1.Controllers
         }
 
         // PUT: api/CartItem/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCartItem(string id, CartItem cartItem)
         {
@@ -82,7 +82,7 @@ namespace assignment1.Controllers
         }
 
         // POST: api/CartItem
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPost]
         public async Task<ActionResult<CartItem>> PostCartItem(CartItem cartItem)
         {

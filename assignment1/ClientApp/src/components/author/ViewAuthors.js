@@ -21,7 +21,7 @@ export const ViewAuthors = () => {
         }}
       >
         <h1>View Authors</h1>
-        <a href="/author/create">Create Author</a>
+        <a href="/author/create" className="button">Create Author</a>
       </div>
       {authorState.loading ? (
         <p>Loading...</p>

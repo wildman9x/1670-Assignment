@@ -40,19 +40,15 @@ export const PublisherDetails = () => {
         <div className="d-flex justify-content-between">
           <h1>{publisher.name}</h1>
           {role === "Admin" && (
-            <a href={"/publisher/update/" + publisher.id}>Update</a>
+            <a href={"/publisher/update/" + publisher.id} className="button">Update</a>
           )}
         </div>
-        <p>
-          Address:
-          {publisher.address}
-        </p>
-        <p>
-          Country:
+        <p>Address:
+          {publisher.address}</p>
+        <p>Country:
           {publisher.country}
         </p>
-        <p>
-          Phone:
+        <p>Phone:
           {publisher.phone}
         </p>
         <img
@@ -64,43 +60,43 @@ export const PublisherDetails = () => {
           }}
         />
       </div>
-
-      {loadingBooks ? (
-        <p>Loading books...</p>
-      ) : (
-        <div>
-          <h2>Books</h2>
-          <table className="table table-striped" aria-labelledby="tabelLabel">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Image</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {books?.map((book) => (
-                <tr key={book.id}>
-                  <td>{book.title}</td>
-                  <td>
-                    <img
-                      style={{
-                        width: "200px",
-                        objectFit: "cover",
-                      }}
-                      src={book.image}
-                      alt={book.title}
-                    />
-                  </td>
-                  <td>
-                    <a href={"/book/" + book.id}>Details</a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+<h1>PublisherDetails</h1>
+      {books?.map((book) => (
+        <div className="col-xxl-4">
+          <a className="product-item rollover" href={`/book/${book.id}`}>
+            <div className="product-item-container">
+              <figure className="figure product-item-image-container">
+                <img style={{
+                  width: "300px",
+                  objectFit: "cover",
+                }}
+                  className="img-fluid figure-img product-image"
+                  src={book.image}
+                  alt={book.title}
+                />
+                <div className="product-item-status">
+                  <span>In stock</span>
+                </div>
+              </figure>
+              <a href={"/book/" + book.id}>
+                <div className="product-item-info">
+                  <div className="product-item-info">
+                    <div className="product-item-info-header">
+                      <div className="product-item-info-name">
+                        <span>{book.title}</span>
+                      </div>
+                      <div className="product-item-price">
+                        <span className="currency-sign">$</span>
+                        <span>{book.price}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </a>
         </div>
-      )}
+      ))}
     </div>
   );
 };

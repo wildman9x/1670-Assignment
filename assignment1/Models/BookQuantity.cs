@@ -14,6 +14,6 @@ namespace assignment1.Models
         public Book? Book { get; set; }
         // Quantity
         [Required]
-        public int Quantity { get; set; }
+        public int Quantity { get; set; } 
     }
 }

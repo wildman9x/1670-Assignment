@@ -9,27 +9,27 @@ namespace assignment1.Models
     public class Author
     {
         // Id
-        public int Id { get; set; }
+        public int Id { get; set; } 
         // First Name
         [Required]
-        public string? FirstName { get; set; }
+        public string? FirstName { get; set; } 
         // Last Name
         [Required]
-        public string? LastName { get; set; }
+        public string? LastName { get; set; } 
         // Birth Date
         [Required]
-        public DateTime BirthDate { get; set; }
+        public DateTime BirthDate { get; set; } 
         // Birth Place
         [Required]
-        public string? BirthPlace { get; set; }
+        public string? BirthPlace { get; set; } 
         // Death Date
-        public DateTime? DeathDate { get; set; }
+        public DateTime? DeathDate { get; set; } 
         // Death Place
-        public string? DeathPlace { get; set; }
+        public string? DeathPlace { get; set; } 
         // Biography
         [Required]
-        public string? Biography { get; set; }
+        public string? Biography { get; set; } 
         // Image
-        public string? Image { get; set; }
+        public string? Image { get; set; } 
     }
 }

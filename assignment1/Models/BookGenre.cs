@@ -9,6 +9,6 @@ namespace assignment1.Models
     {
         public int Id { get; set; }
         public int BookId { get; set; }
-        public int GenreId { get; set; }
+        public int GenreId { get; set; } 
     }
 }

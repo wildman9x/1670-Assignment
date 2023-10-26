@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44425",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\beanc\\Downloads\\mblog\\1670-Assignment\\assignment1\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

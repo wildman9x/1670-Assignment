@@ -9,21 +9,21 @@ namespace assignment1.Models
     public class Publisher
     {
         // Id
-        public int Id { get; set; }
+        public int Id { get; set; } 
         // Name
         [Required]
-        public string? Name { get; set; }
+        public string? Name { get; set; } 
         // Address
         [Required]
-        public string? Address { get; set; }
+        public string? Address { get; set; } 
         // Country
         [Required]
-        public string? Country { get; set; }
+        public string? Country { get; set; } 
         // Phone
         [RegularExpression(@"^(\d{3}-\d{3}-\d{4})$", ErrorMessage = "Phone number must be in the format 123-456-7890")]
         [Required]
-        public string? Phone { get; set; }
+        public string? Phone { get; set; } 
         // Image
-        public string? Image { get; set; }
+        public string? Image { get; set; } 
     }
 }
